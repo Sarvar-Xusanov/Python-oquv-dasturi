@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
 import path from 'node:path';
-import { execSync } from 'node:child_process';
 import { createServer as createViteServer } from 'vite';
 import { db, getDatabaseFileStats, initializeDatabase } from './server/db.ts';
 import {
@@ -12,7 +11,7 @@ import {
   verifyPassword,
   type AuthenticatedRequest,
 } from './server/auth.ts';
-import { runExerciseTests, runPythonCode } from './server/sandbox.ts';
+import { getPythonVersion, runExerciseTests, runPythonCode } from './server/sandbox.ts';
 import {
   ACTIVE_GEMINI_MODEL,
   generateExerciseHint,
@@ -29,12 +28,7 @@ initializeDatabase();
 const app = express();
 app.use(express.json({ limit: '2mb' }));
 
-let pythonVersion = 'Python 3';
-try {
-  pythonVersion = execSync('python3 --version', { encoding: 'utf8' }).trim();
-} catch {
-  pythonVersion = 'Python unavailable';
-}
+const pythonVersion = getPythonVersion();
 
 function unlockAchievement(userId: number, achievementId: string): boolean {
   const res = db

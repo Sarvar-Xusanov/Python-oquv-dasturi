@@ -1,8 +1,66 @@
-import { spawn } from 'node:child_process';
+import { execFileSync, spawn } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+
+interface PythonCommand {
+  bin: string;
+  baseArgs: string[];
+}
+
+let cachedPythonCmd: PythonCommand | null = null;
+
+export function resolvePythonExecutable(): PythonCommand {
+  if (cachedPythonCmd) {
+    return cachedPythonCmd;
+  }
+
+  const candidates: PythonCommand[] =
+    process.platform === 'win32'
+      ? [
+          { bin: 'python', baseArgs: [] },
+          { bin: 'py', baseArgs: ['-3'] },
+          { bin: 'python3', baseArgs: [] },
+        ]
+      : [
+          { bin: 'python3', baseArgs: [] },
+          { bin: 'python', baseArgs: [] },
+        ];
+
+  for (const candidate of candidates) {
+    try {
+      const out = execFileSync(candidate.bin, [...candidate.baseArgs, '--version'], {
+        encoding: 'utf8',
+        timeout: 2000,
+      }).trim();
+      if (out.startsWith('Python 3')) {
+        cachedPythonCmd = candidate;
+        return candidate;
+      }
+    } catch {
+      // Try next candidate
+    }
+  }
+
+  cachedPythonCmd = {
+    bin: process.platform === 'win32' ? 'python' : 'python3',
+    baseArgs: [],
+  };
+  return cachedPythonCmd;
+}
+
+export function getPythonVersion(): string {
+  const cmd = resolvePythonExecutable();
+  try {
+    return execFileSync(cmd.bin, [...cmd.baseArgs, '--version'], {
+      encoding: 'utf8',
+      timeout: 2000,
+    }).trim();
+  } catch {
+    return 'Python unavailable';
+  }
+}
 
 export interface ExecutionResult {
   stdout: string;
@@ -141,18 +199,33 @@ async function executePythonFile(
   stdinText: string,
 ): Promise<ExecutionResult> {
   const startedAt = Date.now();
+  const pythonCmd = resolvePythonExecutable();
+
+  const sandboxEnv: NodeJS.ProcessEnv =
+    process.platform === 'win32'
+      ? {
+          PATH: process.env.PATH || '',
+          SystemRoot: process.env.SystemRoot || 'C:\\Windows',
+          USERPROFILE: cwd,
+          HOME: cwd,
+          TEMP: cwd,
+          TMP: cwd,
+          PYTHONIOENCODING: 'utf-8',
+          PYTHONDONTWRITEBYTECODE: '1',
+        }
+      : {
+          PATH: '/usr/local/bin:/usr/bin:/bin',
+          HOME: cwd,
+          TMPDIR: cwd,
+          LANG: 'C.UTF-8',
+          PYTHONIOENCODING: 'utf-8',
+          PYTHONDONTWRITEBYTECODE: '1',
+        };
 
   return new Promise((resolve) => {
-    const child = spawn('python3', ['-I', '-B', scriptPath], {
+    const child = spawn(pythonCmd.bin, [...pythonCmd.baseArgs, '-I', '-B', scriptPath], {
       cwd,
-      env: {
-        PATH: '/usr/local/bin:/usr/bin:/bin',
-        HOME: cwd,
-        TMPDIR: cwd,
-        LANG: 'C.UTF-8',
-        PYTHONIOENCODING: 'utf-8',
-        PYTHONDONTWRITEBYTECODE: '1',
-      },
+      env: sandboxEnv,
       stdio: ['pipe', 'pipe', 'pipe'],
     });
 
