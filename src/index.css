@@ -1,0 +1,112 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --pm-bg: #F6FAF7;
+  --pm-sidebar: #ECF3EE;
+  --pm-card: #FFFFFF;
+  --pm-card-hover: #F0F6F2;
+  --pm-primary: #128758;
+  --pm-secondary: #16A36A;
+  --pm-accent: #0F764D;
+  --pm-text: #0F1F18;
+  --pm-text-secondary: #42574C;
+  --pm-text-muted: #687D72;
+  --pm-border: #D5E2DA;
+  --pm-error: #D94848;
+  --pm-warning: #B7791F;
+  --pm-info: #2B72B8;
+  --pm-success: #16A36A;
+  --pm-code-bg: #F1F6F3;
+}
+
+.dark {
+  --pm-bg: #0B1110;
+  --pm-sidebar: #101A17;
+  --pm-card: #14211C;
+  --pm-card-hover: #1B2C24;
+  --pm-primary: #16A36A;
+  --pm-secondary: #39C98A;
+  --pm-accent: #75E0AE;
+  --pm-text: #F0F5F1;
+  --pm-text-secondary: #A3B3AA;
+  --pm-text-muted: #718178;
+  --pm-border: #263A30;
+  --pm-error: #EF6464;
+  --pm-warning: #E6B65C;
+  --pm-info: #62A8E8;
+  --pm-success: #39C98A;
+  --pm-code-bg: #0D1613;
+}
+
+@layer base {
+  html,
+  body {
+    background-color: var(--pm-bg);
+    color: var(--pm-text);
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0.005em;
+  }
+
+  .dark body {
+    letter-spacing: 0.01em;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: "Outfit", "Plus Jakarta Sans", sans-serif;
+    text-wrap: balance;
+  }
+
+  code,
+  pre,
+  .font-mono {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle emerald scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pm-border);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pm-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}

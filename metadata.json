@@ -1,0 +1,6 @@
+{
+  "name": "Python Mastery",
+  "description": "Universal AI-powered Python education platform in Uzbek and English with integrated IDE, interactive exercises, automated exams, real projects, analytics, and AI mentor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
