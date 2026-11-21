@@ -353,8 +353,64 @@ app.get('/api/dashboard', requireAuth, (req: AuthenticatedRequest, res) => {
   }
 
   const masteryRows = db
-    .prepare(`SELECT concept_id, mastery_level FROM knowledge_mastery WHERE user_id = ? ORDER BY mastery_level ASC`)
-    .all(userId) as Array<{ concept_id: string; mastery_level: number }>;
+    .prepare(`SELECT concept_id, mastery_level, confidence_score, last_assessed_at FROM knowledge_mastery WHERE user_id = ? ORDER BY mastery_level ASC`)
+    .all(userId) as Array<{
+      concept_id: string;
+      mastery_level: number;
+      confidence_score: number;
+      last_assessed_at: string;
+    }>;
+
+  const nowMs = Date.now();
+  const masteryWithStatus = masteryRows.map((m) => {
+    const level = m.mastery_level;
+    const assessedMs = Date.parse(m.last_assessed_at.replace(' ', 'T') + 'Z');
+    const daysSince = Number.isFinite(assessedMs)
+      ? Math.max(0, Math.floor((nowMs - assessedMs) / 86_400_000))
+      : 0;
+    const nextIntervalDays =
+      level >= 95 ? 30 : level >= 85 ? 14 : level >= 75 ? 7 : level >= 60 ? 3 : 1;
+    const dueForReview = level < 70 || daysSince >= nextIntervalDays;
+
+    const status =
+      level < 40
+        ? 'learning'
+        : level < 65
+        ? 'practicing'
+        : dueForReview
+        ? 'needs_review'
+        : level >= 90
+        ? 'mastered'
+        : 'proficient';
+
+    return {
+      concept_id: m.concept_id,
+      mastery_level: level,
+      status,
+      daysSinceAssessment: daysSince,
+      nextIntervalDays,
+      dueForReview,
+    };
+  });
+
+  const reviewQueue = masteryWithStatus
+    .filter((m) => m.dueForReview)
+    .slice(0, 4)
+    .map((m) => {
+      const relatedCompleted = completedLessons.find((cl) => {
+        const l = getLessonById(cl.lesson_id);
+        return l?.conceptId === m.concept_id || l?.courseId === m.concept_id;
+      });
+      return {
+        concept_id: m.concept_id,
+        mastery_level: m.mastery_level,
+        status: m.status,
+        reason: m.mastery_level < 70 ? 'weak_score' : 'spaced_interval',
+        intervalDays: m.nextIntervalDays,
+        daysSince: m.daysSinceAssessment,
+        lessonId: relatedCompleted?.lesson_id ?? null,
+      };
+    });
 
   const achievementsRows = db
     .prepare(`SELECT achievement_id, unlocked_at FROM user_achievements WHERE user_id = ? ORDER BY unlocked_at DESC`)
@@ -392,8 +448,9 @@ app.get('/api/dashboard', requireAuth, (req: AuthenticatedRequest, res) => {
       ).cnt,
     },
     weeklyActivity,
-    mastery: masteryRows,
-    weakTopics: masteryRows.filter((m) => m.mastery_level < 70).slice(0, 4),
+    mastery: masteryWithStatus,
+    weakTopics: masteryWithStatus.filter((m) => m.mastery_level < 70).slice(0, 4),
+    reviewQueue,
     achievements: achievementsRows,
     lastCompletedLessonId: completedLessons[0]?.lesson_id ?? null,
   });

@@ -22,7 +22,7 @@ export const DIAGNOSTIC_EXAM: Examination = {
     {
       id: 'd1',
       type: 'output_prediction',
-      conceptId: 'variables',
+      conceptId: 'python_fundamentals',
       prompt: {
         uz: "Quyidagi Python kodi ekranga nima chiqaradi?",
         en: 'What does the following Python code output?',
@@ -150,7 +150,7 @@ export const EXAMINATIONS: Examination[] = [
       {
         id: 'e1_q1',
         type: 'output_prediction',
-        conceptId: 'variables',
+        conceptId: 'python_fundamentals',
         prompt: { uz: 'Natija nima bo‘ladi?', en: 'What is the output?' },
         codeSnippet: `a = 17\nb = 5\nprint(a // b, a % b)`,
         options: {
@@ -200,7 +200,7 @@ export const EXAMINATIONS: Examination[] = [
       {
         id: 'e1_q4',
         type: 'true_false',
-        conceptId: 'variables',
+        conceptId: 'python_fundamentals',
         prompt: {
           uz: "Python'da `bool(\"\")` (bo'sh string) qiymati `False` ga teng.",
           en: 'In Python, `bool("")` (empty string) evaluates to `False`.',
@@ -413,7 +413,7 @@ export const EXAMINATIONS: Examination[] = [
       {
         id: 'e3_q4',
         type: 'true_false',
-        conceptId: 'async_python',
+        conceptId: 'advanced_python',
         prompt: {
           uz: "`asyncio` I/O-bound vazifalar (masalan, tarmoq so'rovlari) uchun juda samarali, CPU-bound hisoblashlar uchun esa `multiprocessing` afzal.",
           en: '`asyncio` excels at I/O-bound concurrency, whereas CPU-bound tasks benefit from `multiprocessing`.',
@@ -644,7 +644,7 @@ export const VIDEO_CATALOG: VideoResource[] = [
     difficulty: 'beginner',
     topics: ['functions', 'variables', 'conditionals', 'loops', 'exceptions', 'oop'],
     relatedCourse: 'python_fundamentals',
-    relatedLessons: ['PY-FND-001', 'PY-FND-002', 'PY-VAR-001'],
+    relatedLessons: ['PY-02-01', 'PY-02-03', 'PY-05-01'],
     description: {
       uz: "Harvard universitetining mashhur CS50P Python kursi: funksiyalar, shartlar, sikllar, testlar va OOP bo'yicha fundamental ma'ruzalar.",
       en: "Harvard University's CS50P lectures covering functions, variables, conditionals, loops, unit tests, and OOP.",
@@ -661,7 +661,7 @@ export const VIDEO_CATALOG: VideoResource[] = [
     difficulty: 'beginner',
     topics: ['curriculum', 'python', 'problem solving'],
     relatedCourse: 'python_fundamentals',
-    relatedLessons: ['PY-FND-001'],
+    relatedLessons: ['PY-01-01'],
     description: {
       uz: 'Harvard CS50P rasmiy kurs sahifasi va qo‘shimcha amaliy topshiriqlar.',
       en: 'Official Harvard CS50P course portal with structured lecture notes and problem sets.',
@@ -678,7 +678,7 @@ export const VIDEO_CATALOG: VideoResource[] = [
     difficulty: 'beginner',
     topics: ['strings', 'lists', 'dictionaries', 'functions', 'oop', 'decorators'],
     relatedCourse: 'data_structures',
-    relatedLessons: ['PY-DS-001', 'PY-DS-002', 'PY-OOP-001'],
+    relatedLessons: ['PY-04-01', 'PY-04-08', 'PY-09-01'],
     description: {
       uz: "Python ma'lumot turlari, dictionary, funksiya, dekoratorlar va OOP ni amaliy misollar bilan tushuntiruvchi mashhur darslar turkumi.",
       en: 'Comprehensive practical tutorials on strings, lists, dicts, functions, OOP, and decorators.',
@@ -694,8 +694,8 @@ export const VIDEO_CATALOG: VideoResource[] = [
     language: 'en',
     difficulty: 'beginner',
     topics: ['variables', 'lists', 'loops', 'files', 'classes'],
-    relatedCourse: 'variables_types',
-    relatedLessons: ['PY-VAR-001', 'PY-CTL-001'],
+    relatedCourse: 'python_fundamentals',
+    relatedLessons: ['PY-02-03', 'PY-03-02'],
     description: {
       uz: "Noldan boshlovchilar uchun Python sintaksisi, ro'yxatlar, sikllar va klasslar bo'yicha yaxlit video qo'llanma.",
       en: 'Complete beginner-friendly walkthrough of Python syntax, lists, loops, files, and classes.',
@@ -712,7 +712,7 @@ export const VIDEO_CATALOG: VideoResource[] = [
     difficulty: 'intermediate',
     topics: ['standard library', 'modules', 'classes', 'errors'],
     relatedCourse: 'modules_packages',
-    relatedLessons: ['PY-MOD-001', 'PY-ADV-001'],
+    relatedLessons: ['PY-08-01', 'PY-10-01'],
     description: {
       uz: "Python 3 ning rasmiy qo'llanmasi: standart kutubxonalar, modullar va chuqur til xususiyatlari.",
       en: 'The official Python 3 tutorial covering standard library, modules, and language semantics.',
@@ -732,7 +732,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       en: 'A named reference pointing to an object in memory. Python uses dynamic typing.',
     },
     example: `age = 21\nname = "Aziz"`,
-    relatedCourseId: 'variables_types',
+    relatedCourseId: 'python_fundamentals',
   },
   {
     id: 'g-str',
@@ -744,7 +744,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       en: 'An immutable sequence of Unicode characters enclosed in quotes.',
     },
     example: `greeting = f"Salom, {name}!"`,
-    relatedCourseId: 'variables_types',
+    relatedCourseId: 'python_fundamentals',
   },
   {
     id: 'g-list',
@@ -828,7 +828,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       en: 'A runtime error object that can be caught and handled cleanly using `try` and `except`.',
     },
     example: `try:\n    n = int("abc")\nexcept ValueError:\n    n = 0`,
-    relatedCourseId: 'files_exceptions',
+    relatedCourseId: 'errors_testing',
   },
   {
     id: 'g-dec',
@@ -888,7 +888,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       en: 'Syntax for writing non-blocking coroutines managed by the `asyncio` event loop.',
     },
     example: `async def fetch_data():\n    await asyncio.sleep(0.1)\n    return "OK"`,
-    relatedCourseId: 'async_python',
+    relatedCourseId: 'advanced_python',
   },
 ];
 
@@ -994,7 +994,7 @@ export const NINETY_DAY_PROGRAM: NinetyDayPhase[] = [
       uz: "Dasturlash asoslari, o'zgaruvchilar, stringlar, shart operatorlari va for/while sikllari.",
       en: 'Foundations, variables, types, conditionals, and loops.',
     },
-    courseIds: ['python_fundamentals', 'variables_types', 'control_flow'],
+    courseIds: ['computer_literacy', 'python_fundamentals', 'control_flow'],
     checkpointExamId: 'EXAM-01',
     milestoneDeliverable: {
       uz: 'Har 5 darsda mini amaliyot + 15-kuni 1-Bosqich nazorat imtihoni',
@@ -1019,12 +1019,12 @@ export const NINETY_DAY_PROGRAM: NinetyDayPhase[] = [
   {
     phase: 3,
     daysRange: '31–45',
-    title: { uz: '3-bosqich: OOP, Fayllar va Xatolar bilan ishlash', en: 'Phase 3: OOP, Files & Exceptions' },
+    title: { uz: '3-bosqich: Fayllar, Xatolar va OOP', en: 'Phase 3: Files, Testing & OOP' },
     focus: {
-      uz: 'Klasslar, merosxo‘rlik, polimorfizm, JSON/CSV va xavfsiz try/except.',
-      en: 'Classes, inheritance, polymorphism, JSON/CSV, and exception handling.',
+      uz: 'Fayl oqimlari (TXT/CSV/JSON/pathlib), try/except, pytest va OOP klasslar arxitekturasi.',
+      en: 'File streams, exception handling, pytest, and OOP classes & design patterns.',
     },
-    courseIds: ['oop', 'files_exceptions'],
+    courseIds: ['files_io', 'errors_testing', 'oop'],
     milestoneDeliverable: {
       uz: 'OOP Talabalar Baho Tizimi loyihasi',
       en: 'OOP Student Gradebook project',
@@ -1033,12 +1033,12 @@ export const NINETY_DAY_PROGRAM: NinetyDayPhase[] = [
   {
     phase: 4,
     daysRange: '46–60',
-    title: { uz: '4-bosqich: Professional Python va Muhandislik', en: 'Phase 4: Professional Python & Engineering' },
+    title: { uz: '4-bosqich: Modullar va Advanced Python', en: 'Phase 4: Modules & Advanced Python' },
     focus: {
-      uz: 'Modullar, virtual muhitlar, dekoratorlar, generatorlar, Git va Pytest.',
-      en: 'Modules, venv, decorators, generators, Git, clean code, and pytest.',
+      uz: 'Modullar, venv, Git/GitHub, dekoratorlar, generatorlar, regex va typing.',
+      en: 'Modules, venv, Git, decorators, generators, regex, and advanced typing.',
     },
-    courseIds: ['modules_packages', 'advanced_python', 'software_engineering'],
+    courseIds: ['modules_packages', 'advanced_python'],
     milestoneDeliverable: {
       uz: 'Unit testlangan modulli Python kutubxonasi',
       en: 'Unit-tested modular Python package',
@@ -1047,12 +1047,12 @@ export const NINETY_DAY_PROGRAM: NinetyDayPhase[] = [
   {
     phase: 5,
     daysRange: '61–75',
-    title: { uz: "5-bosqich: Algoritmlar, SQL va Backend asoslari", en: 'Phase 5: Algorithms, Databases & Backend' },
+    title: { uz: "5-bosqich: Algoritmlar, SQL, HTTP va Backend", en: 'Phase 5: Algorithms, SQL & Backend' },
     focus: {
-      uz: 'Big O, Qidiruv/Saralash, SQLite/PostgreSQL, SQLAlchemy, HTTP va FastAPI.',
-      en: 'Big O, searching/sorting, SQL, SQLAlchemy, HTTP, and FastAPI.',
+      uz: 'Big O, Qidiruv/Saralash, SQLite/PostgreSQL, REST API, Flask/Django/FastAPI.',
+      en: 'Big O, searching/sorting, SQL, HTTP/REST APIs, and FastAPI/ORM backends.',
     },
-    courseIds: ['algorithms', 'databases', 'web_backend'],
+    courseIds: ['algorithms', 'databases', 'http_apis', 'web_backend'],
     checkpointExamId: 'EXAM-03',
     milestoneDeliverable: {
       uz: '3-Bosqich Imtihoni + Maʼlumotlar bazali API prototipi',
@@ -1062,12 +1062,12 @@ export const NINETY_DAY_PROGRAM: NinetyDayPhase[] = [
   {
     phase: 6,
     daysRange: '76–90',
-    title: { uz: '6-bosqich: Avtomatlashtirish, Async, Data/AI va Yakuniy Loyiha', en: 'Phase 6: Automation, Async, AI & Capstone' },
+    title: { uz: '6-bosqich: Automation, Data Science va AI / ML', en: 'Phase 6: Automation, Data Science & AI/ML' },
     focus: {
-      uz: 'OS avtomatlashtirish, asyncio, NumPy/Pandas, xavfsizlik, deploy va portfolio.',
-      en: 'Automation, asyncio, NumPy/Pandas, security, deployment, and capstone.',
+      uz: 'OS avtomatlashtirish, Web Scraping, NumPy/Pandas/EDA, Scikit-learn, PyTorch va AI API.',
+      en: 'Automation, scraping, NumPy/Pandas/EDA, Scikit-learn, PyTorch, and AI API apps.',
     },
-    courseIds: ['automation', 'async_python', 'data_science_ai', 'professional_dev'],
+    courseIds: ['automation', 'data_science', 'ai_ml'],
     milestoneDeliverable: {
       uz: '90-kun yakuniy loyihasi (Server Log Auditor) va Junior tayyorgarlik baholash',
       en: 'Day 90 Capstone Project & Junior-readiness competency review',

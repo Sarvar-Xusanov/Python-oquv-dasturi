@@ -30,8 +30,17 @@ export interface DashboardData {
     examsPassedCount: number;
   };
   weeklyActivity: Array<{ date: string; label: string; minutes: number }>;
-  mastery: Array<{ concept_id: string; mastery_level: number }>;
+  mastery: Array<{ concept_id: string; mastery_level: number; status?: string }>;
   weakTopics: Array<{ concept_id: string; mastery_level: number }>;
+  reviewQueue?: Array<{
+    concept_id: string;
+    mastery_level: number;
+    status: string;
+    reason: 'weak_score' | 'spaced_interval';
+    intervalDays: number;
+    daysSince: number;
+    lessonId: string | null;
+  }>;
   achievements: Array<{ achievement_id: string; unlocked_at: string }>;
   lastCompletedLessonId: string | null;
 }
@@ -332,6 +341,55 @@ export function DashboardScreen({
           )}
         </div>
       </div>
+
+      {/* Spaced Review Queue (Appendix B B6) */}
+      {dashboard?.reviewQueue && dashboard.reviewQueue.length > 0 && (
+        <div className="rounded-xl border border-[var(--pm-border)] bg-[var(--pm-card)] p-5 space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 className="font-display text-base font-semibold text-[var(--pm-text)]">
+                {lang === 'uz' ? 'Takrorlash navbati (Spaced Review)' : 'Spaced Repetition Review Queue'}
+              </h3>
+              <p className="text-xs text-[var(--pm-text-muted)]">
+                {lang === 'uz'
+                  ? 'Bilimni uzoq muddatli xotirada mustahkamlash uchun tavsiya etilgan mavzular'
+                  : 'Concepts due for review based on mastery score and 1/3/7/14/30-day intervals'}
+              </p>
+            </div>
+          </div>
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+            {dashboard.reviewQueue.map((item) => {
+              const targetLesson =
+                (item.lessonId ? LESSONS.find((l) => l.id === item.lessonId) : null) ??
+                LESSONS.find((l) => l.conceptId === item.concept_id) ??
+                LESSONS.find((l) => l.courseId === item.concept_id) ??
+                nextLesson;
+              return (
+                <button
+                  key={item.concept_id}
+                  type="button"
+                  onClick={() => onOpenLesson(targetLesson.id)}
+                  className="rounded-lg border border-[var(--pm-border)] bg-[var(--pm-bg)] p-3 text-left hover:border-[var(--pm-primary)] transition-colors space-y-1.5"
+                >
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-semibold text-[var(--pm-text)]">{item.concept_id}</span>
+                    <span className="font-mono text-[var(--pm-warning)]">{item.mastery_level}%</span>
+                  </div>
+                  <div className="text-[11px] text-[var(--pm-text-muted)]">
+                    {item.reason === 'weak_score'
+                      ? lang === 'uz'
+                        ? 'Sabab: mustahkamlash kerak (< 70%)'
+                        : 'Reason: needs reinforcement (< 70%)'
+                      : lang === 'uz'
+                      ? `Sabab: ${item.intervalDays}-kunlik takrorlash vaqti keldi`
+                      : `Reason: ${item.intervalDays}-day review interval due`}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

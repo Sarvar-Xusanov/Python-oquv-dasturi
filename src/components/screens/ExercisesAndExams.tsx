@@ -49,6 +49,7 @@ export function ExercisesScreen({
   const [lastScore, setLastScore] = useState<number | null>(null);
   const [stderr, setStderr] = useState<string>('');
   const [hint, setHint] = useState<string | null>(null);
+  const [hintTier, setHintTier] = useState<number>(0);
   const [busy, setBusy] = useState(false);
 
   const loadSubmissions = async () => {
@@ -178,6 +179,7 @@ export function ExercisesScreen({
                   setOutcomes(null);
                   setStderr('');
                   setHint(null);
+                  setHintTier(0);
                   setLastScore(null);
                 }}
                 className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-xs transition-colors ${
@@ -206,6 +208,7 @@ export function ExercisesScreen({
             <div>
               <div className="text-xs text-[var(--pm-text-muted)]">
                 {exercise.id} · {exercise.topic[language]} · {t(language, `common.${exercise.difficulty}`)}
+                {exercise.skillLevel ? ` · ${exercise.skillLevel}` : ''}
               </div>
               <h1 className="font-display text-xl font-bold text-[var(--pm-text)]">{exercise.title[language]}</h1>
             </div>
@@ -272,17 +275,65 @@ export function ExercisesScreen({
                 {t(language, 'exercises.submit_solution')}
               </button>
             </div>
-            <button
-              type="button"
-              disabled={busy}
-              onClick={handleRequestHint}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--pm-border)] px-3.5 py-2 text-xs font-medium text-[var(--pm-warning)] hover:bg-[var(--pm-card-hover)]"
-            >
-              <Lightbulb className="h-3.5 w-3.5" />
-              {t(language, 'exercises.request_hint')}
-            </button>
+            <div className="flex flex-wrap items-center gap-2">
+              {exercise.progressiveHints && (
+                <button
+                  type="button"
+                  onClick={() => setHintTier((tVal) => (tVal >= 3 ? 0 : tVal + 1))}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--pm-border)] px-3.5 py-2 text-xs font-medium text-[var(--pm-secondary)] hover:bg-[var(--pm-card-hover)]"
+                >
+                  <Lightbulb className="h-3.5 w-3.5" />
+                  {hintTier === 0
+                    ? language === 'uz' ? '1-bosqich maslahat' : 'Hint Step 1/3'
+                    : hintTier < 3
+                    ? language === 'uz' ? `Keyingi maslahat (${hintTier}/3)` : `Next Hint (${hintTier}/3)`
+                    : language === 'uz' ? 'Maslahatlarni yopish' : 'Hide Hints'}
+                </button>
+              )}
+              <button
+                type="button"
+                disabled={busy}
+                onClick={handleRequestHint}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--pm-border)] px-3.5 py-2 text-xs font-medium text-[var(--pm-warning)] hover:bg-[var(--pm-card-hover)]"
+              >
+                <Lightbulb className="h-3.5 w-3.5" />
+                {t(language, 'exercises.request_hint')}
+              </button>
+            </div>
           </div>
         </div>
+
+        {hintTier > 0 && exercise.progressiveHints && (
+          <div className="rounded-xl border border-[var(--pm-primary)]/40 bg-[var(--pm-card)] p-4 space-y-2.5 text-xs">
+            <div className="font-semibold text-[var(--pm-secondary)]">
+              {language === 'uz'
+                ? `Bosqichma-bosqich maslahat (${hintTier}/3)`
+                : `Progressive Hint Ladder (${hintTier}/3)`}
+            </div>
+            <div className="rounded-lg border border-[var(--pm-border)] bg-[var(--pm-bg)] p-2.5 text-[var(--pm-text-secondary)]">
+              <strong className="text-[var(--pm-text)]">
+                {language === 'uz' ? '1. G‘oya:' : '1. Conceptual:'}
+              </strong>{' '}
+              {exercise.progressiveHints.conceptual[language]}
+            </div>
+            {hintTier >= 2 && (
+              <div className="rounded-lg border border-[var(--pm-border)] bg-[var(--pm-bg)] p-2.5 text-[var(--pm-text-secondary)]">
+                <strong className="text-[var(--pm-text)]">
+                  {language === 'uz' ? '2. Tuzilma:' : '2. Structural:'}
+                </strong>{' '}
+                {exercise.progressiveHints.structural[language]}
+              </div>
+            )}
+            {hintTier >= 3 && (
+              <div className="rounded-lg border border-[var(--pm-border)] bg-[var(--pm-bg)] p-2.5 text-[var(--pm-text-secondary)]">
+                <strong className="text-[var(--pm-text)]">
+                  {language === 'uz' ? '3. Yechimga yaqin:' : '3. Near-solution:'}
+                </strong>{' '}
+                {exercise.progressiveHints.nearSolution[language]}
+              </div>
+            )}
+          </div>
+        )}
 
         {hint && (
           <div className="rounded-xl border border-[var(--pm-warning)]/40 bg-[var(--pm-card)] p-4 text-sm text-[var(--pm-text)]">

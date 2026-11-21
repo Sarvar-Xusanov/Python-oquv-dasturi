@@ -30,8 +30,48 @@ export interface UserSummary {
 
 export interface LessonExample {
   title: LocalizedText;
+  stageLabel?: LocalizedText;
   code: string;
+  expectedOutput?: string;
   explanation: LocalizedText;
+}
+
+export interface LessonCodeTraceStep {
+  step: number;
+  line: string;
+  state: string;
+  output?: string;
+  note: LocalizedText;
+}
+
+export interface LessonCommonMistake {
+  title: LocalizedText;
+  wrongCode: string;
+  errorSymptom: string;
+  rootCause: LocalizedText;
+  fixedCode: string;
+  preventionTip: LocalizedText;
+}
+
+export interface LessonCompareItem {
+  title: LocalizedText;
+  criteria: {
+    uz: string[];
+    en: string[];
+  };
+  summary: LocalizedText;
+}
+
+export interface LessonHomework {
+  title: LocalizedText;
+  task: LocalizedText;
+  requirements: {
+    uz: string[];
+    en: string[];
+  };
+  hint: LocalizedText;
+  extensionChallenge: LocalizedText;
+  estimatedMinutes: number;
 }
 
 export interface LessonQuizQuestion {
@@ -45,6 +85,26 @@ export interface LessonQuizQuestion {
   explanation: LocalizedText;
 }
 
+export interface LessonPracticeTask {
+  id: string;
+  title: LocalizedText;
+  prompt: LocalizedText;
+  starterCode: string;
+  expectedOutput?: string;
+  hint: LocalizedText;
+}
+
+export interface LessonReviewCheckpoint {
+  checkpointNumber: number;
+  title: LocalizedText;
+  summary: LocalizedText;
+  deliverables: {
+    uz: string[];
+    en: string[];
+  };
+  starterCode: string;
+}
+
 export interface Lesson {
   id: string;
   courseId: string;
@@ -53,15 +113,42 @@ export interface Lesson {
   title: LocalizedText;
   difficulty: Difficulty;
   estimatedMinutes: number;
+  contentVersion?: string;
+  contentStatus?: 'published' | 'reviewed' | 'draft';
+  timeBreakdown?: {
+    explanation: number;
+    examples: number;
+    practice: number;
+    review: number;
+  };
   prerequisites: string[];
   conceptId: string;
+  whyItMatters?: LocalizedText;
+  mentalModel?: {
+    analogy: LocalizedText;
+    whereItStops: LocalizedText;
+  };
   objectives: {
     uz: string[];
     en: string[];
   };
   theory: LocalizedText;
   examples: LessonExample[];
+  codeTrace?: {
+    title: LocalizedText;
+    code: string;
+    steps: LessonCodeTraceStep[];
+  };
+  commonMistakes?: LessonCommonMistake[];
+  compareAndChoose?: LessonCompareItem;
+  practiceTasks?: LessonPracticeTask[];
   quiz: LessonQuizQuestion[];
+  homework?: LessonHomework;
+  reviewCheckpoint?: LessonReviewCheckpoint;
+  completionCriteria?: {
+    uz: string[];
+    en: string[];
+  };
   relatedVideos: string[];
   relatedExercises: string[];
 }
@@ -97,17 +184,38 @@ export interface ExerciseTestCase {
   isHidden?: boolean;
 }
 
+export type ExerciseSkillLevel =
+  | 'recognition'
+  | 'guided'
+  | 'independent'
+  | 'applied'
+  | 'challenge';
+
+export type MasteryStatus =
+  | 'not_started'
+  | 'learning'
+  | 'practicing'
+  | 'needs_review'
+  | 'proficient'
+  | 'mastered';
+
 export interface Exercise {
   id: string;
   title: LocalizedText;
   courseId: string;
   topic: LocalizedText;
   difficulty: Difficulty;
+  skillLevel?: ExerciseSkillLevel;
   estimatedMinutes: number;
   instructions: LocalizedText;
   constraints: {
     uz: string[];
     en: string[];
+  };
+  progressiveHints?: {
+    conceptual: LocalizedText;
+    structural: LocalizedText;
+    nearSolution: LocalizedText;
   };
   sampleInput: string;
   sampleOutput: string;

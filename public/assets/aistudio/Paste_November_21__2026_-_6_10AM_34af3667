@@ -1,0 +1,2455 @@
+# PYTHON MASTERY
+# COMPLETE SOFTWARE PRODUCT MASTER SPECIFICATION
+## Universal AI-Powered Python Education Platform
+### Version 1.0 — Full Development Blueprint
+
+---
+
+# PART 1. PROJECT IDENTITY AND VISION
+
+## 1.1 Product identity
+
+Product name: Python Mastery
+Tagline: Learn Python. Build Skills. Create the Future.
+Product type: Universal multi-user desktop educational application.
+Platforms: Kali Linux, Debian, Ubuntu, Windows 10/11.
+Languages: Uzbek and English.
+Default interface language: Uzbek.
+
+Programming terminology must remain in English, accompanied by clear Uzbek explanations.
+
+## 1.2 Product objective
+
+Build a complete Python education ecosystem that allows anyone to learn programming from absolute zero to advanced practical competency.
+
+The product combines:
+1. A complete educational curriculum.
+2. An AI personal tutor.
+3. An integrated Python IDE.
+4. Interactive exercises.
+5. Automated examinations.
+6. Real-world projects.
+7. Video learning resources.
+8. Personal learning analytics.
+9. Multi-user profile management.
+10. Course and content management.
+
+This must be a real application, not a static mockup or website prototype.
+
+## 1.3 Target audience
+
+Support:
+- Absolute beginners with no programming knowledge.
+- Students who know basic computer concepts.
+- Learners with introductory Python knowledge.
+- Intermediate Python developers.
+- Advanced learners.
+- University students.
+- Self-taught programmers.
+- People preparing for Junior Python Developer roles.
+
+Use one standardized knowledge framework, while personalizing each user's learning experience.
+
+## 1.4 Learning principle
+
+Use this learning cycle:
+
+UNDERSTAND → OBSERVE → PRACTICE → SOLVE → TEST → REVIEW → BUILD.
+
+Watching a video or reading a lesson is not proof of programming competence. Students must demonstrate understanding through practical work.
+
+---
+
+# PART 2. TECHNOLOGY STACK
+
+Choose stable, mutually compatible dependency versions. Document the selected versions and lock dependencies.
+
+## 2.1 Main application
+- Python 3.12 or newer, provided all selected dependencies support it.
+- PySide6.
+- Qt Widgets.
+- SQLAlchemy 2.x.
+- Alembic.
+- Pydantic.
+- Markdown rendering.
+
+## 2.2 Graphics and interface libraries
+
+| Package | Responsibility |
+|---|---|
+| PySide6 | Main desktop UI |
+| QScintilla | Python code editor |
+| PyQtGraph | Interactive progress charts |
+| Matplotlib | Advanced charts and reports |
+| QSS | Global interface styling |
+| Pillow | Image processing |
+| QtSvg | SVG rendering |
+| Qt Animation | Interface transitions |
+| Lucide SVG assets | Consistent icons |
+
+Do not install multiple libraries for the same task without a clear reason. Use PyQtGraph for lightweight interactive statistics and Matplotlib for complex charts and exported reports. Use native Qt widgets for forms, buttons, navigation, tables, and dialogs.
+
+## 2.3 Data and content
+- SQLite.
+- SQLAlchemy.
+- Alembic.
+- Pydantic.
+- JSON.
+- Markdown.
+- SQLite FTS5 for searchable lessons and notes.
+
+## 2.4 AI integration
+
+Create a provider-independent AI architecture.
+
+Support adapters for:
+- Anthropic Claude API.
+- OpenAI API.
+- Google Gemini API.
+- Other compatible providers through adapters.
+
+Do not bind the application to one AI provider.
+
+AI configuration must include:
+- Provider.
+- Model.
+- API endpoint where applicable.
+- API key.
+- Temperature.
+- Maximum output tokens.
+- Request timeout.
+- Connection status.
+- Model availability.
+
+Never hardcode credentials. Store API keys securely using the operating system credential store when possible. Provide an environment-variable fallback.
+
+## 2.5 Development and quality tools
+- pytest.
+- pytest-qt.
+- Ruff.
+- mypy.
+- coverage.
+- pre-commit.
+- Git.
+
+---
+
+# PART 3. EXACT PROJECT DIRECTORY STRUCTURE
+
+Linux project location:
+~/PythonMastery/
+
+Windows project location:
+%USERPROFILE%\PythonMastery\
+
+Create this architecture:
+
+PythonMastery/
+├── main.py
+├── pyproject.toml
+├── requirements.txt
+├── README.md
+├── LICENSE
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── .gitignore
+├── .env.example
+│
+├── config/
+│   ├── app_config.yaml
+│   ├── theme_config.yaml
+│   ├── ai_providers.yaml
+│   ├── learning_config.yaml
+│   └── logging_config.yaml
+│
+├── app/
+│   ├── __init__.py
+│   ├── bootstrap.py
+│   ├── application.py
+│   │
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── paths.py
+│   │   ├── constants.py
+│   │   ├── exceptions.py
+│   │   ├── event_bus.py
+│   │   ├── logging.py
+│   │   ├── configuration.py
+│   │   ├── dependency_container.py
+│   │   └── validators.py
+│   │
+│   ├── database/
+│   │   ├── __init__.py
+│   │   ├── engine.py
+│   │   ├── session.py
+│   │   ├── base.py
+│   │   ├── migrations/
+│   │   ├── repositories/
+│   │   │   ├── user_repository.py
+│   │   │   ├── course_repository.py
+│   │   │   ├── lesson_repository.py
+│   │   │   ├── progress_repository.py
+│   │   │   ├── exercise_repository.py
+│   │   │   ├── project_repository.py
+│   │   │   └── ai_repository.py
+│   │   └── models/
+│   │       ├── user.py
+│   │       ├── user_profile.py
+│   │       ├── course.py
+│   │       ├── module.py
+│   │       ├── lesson.py
+│   │       ├── exercise.py
+│   │       ├── submission.py
+│   │       ├── quiz.py
+│   │       ├── examination.py
+│   │       ├── project.py
+│   │       ├── project_milestone.py
+│   │       ├── study_session.py
+│   │       ├── mastery.py
+│   │       ├── achievement.py
+│   │       ├── ai_conversation.py
+│   │       ├── note.py
+│   │       ├── video_resource.py
+│   │       └── settings.py
+│   │
+│   ├── ui/
+│   │   ├── __init__.py
+│   │   ├── main_window/
+│   │   │   ├── main_window.py
+│   │   │   ├── sidebar.py
+│   │   │   ├── topbar.py
+│   │   │   ├── statusbar.py
+│   │   │   └── navigation.py
+│   │   ├── screens/
+│   │   │   ├── welcome_screen.py
+│   │   │   ├── login_screen.py
+│   │   │   ├── registration_screen.py
+│   │   │   ├── profile_selection_screen.py
+│   │   │   ├── onboarding_screen.py
+│   │   │   ├── dashboard_screen.py
+│   │   │   ├── learning_path_screen.py
+│   │   │   ├── course_catalog_screen.py
+│   │   │   ├── lesson_screen.py
+│   │   │   ├── code_lab_screen.py
+│   │   │   ├── ai_mentor_screen.py
+│   │   │   ├── exercises_screen.py
+│   │   │   ├── examination_screen.py
+│   │   │   ├── project_lab_screen.py
+│   │   │   ├── video_library_screen.py
+│   │   │   ├── notes_screen.py
+│   │   │   ├── analytics_screen.py
+│   │   │   ├── achievements_screen.py
+│   │   │   ├── glossary_screen.py
+│   │   │   ├── settings_screen.py
+│   │   │   └── admin_screen.py
+│   │   ├── widgets/
+│   │   │   ├── cards/
+│   │   │   │   ├── course_card.py
+│   │   │   │   ├── lesson_card.py
+│   │   │   │   ├── project_card.py
+│   │   │   │   ├── statistic_card.py
+│   │   │   │   └── video_card.py
+│   │   │   ├── charts/
+│   │   │   │   ├── progress_chart.py
+│   │   │   │   ├── activity_chart.py
+│   │   │   │   └── mastery_chart.py
+│   │   │   ├── editor/
+│   │   │   │   ├── code_editor.py
+│   │   │   │   ├── line_number_area.py
+│   │   │   │   ├── output_console.py
+│   │   │   │   └── editor_toolbar.py
+│   │   │   ├── common/
+│   │   │   │   ├── primary_button.py
+│   │   │   │   ├── search_bar.py
+│   │   │   │   ├── progress_bar.py
+│   │   │   │   ├── tooltip.py
+│   │   │   │   ├── empty_state.py
+│   │   │   │   └── loading_indicator.py
+│   │   │   └── dialogs/
+│   │   │       ├── confirmation_dialog.py
+│   │   │       ├── error_dialog.py
+│   │   │       ├── api_settings_dialog.py
+│   │   │       └── profile_dialog.py
+│   │   └── styles/
+│   │       ├── theme_manager.py
+│   │       ├── dark_theme.qss
+│   │       ├── light_theme.qss
+│   │       ├── components.qss
+│   │       └── typography.qss
+│   │
+│   ├── services/
+│   │   ├── authentication_service.py
+│   │   ├── profile_service.py
+│   │   ├── course_service.py
+│   │   ├── lesson_service.py
+│   │   ├── progress_service.py
+│   │   ├── mastery_service.py
+│   │   ├── exercise_service.py
+│   │   ├── examination_service.py
+│   │   ├── project_service.py
+│   │   ├── video_service.py
+│   │   ├── notes_service.py
+│   │   ├── analytics_service.py
+│   │   ├── achievement_service.py
+│   │   ├── backup_service.py
+│   │   └── recommendation_service.py
+│   │
+│   ├── ai/
+│   │   ├── ai_manager.py
+│   │   ├── base_provider.py
+│   │   ├── provider_registry.py
+│   │   ├── providers/
+│   │   │   ├── anthropic_provider.py
+│   │   │   ├── openai_provider.py
+│   │   │   └── gemini_provider.py
+│   │   ├── mentor_engine.py
+│   │   ├── context_builder.py
+│   │   ├── prompt_manager.py
+│   │   ├── response_validator.py
+│   │   ├── code_analyzer.py
+│   │   ├── exercise_generator.py
+│   │   └── prompts/
+│   │       ├── teacher.md
+│   │       ├── debugger.md
+│   │       ├── reviewer.md
+│   │       ├── exam_evaluator.md
+│   │       └── project_mentor.md
+│   │
+│   ├── execution/
+│   │   ├── execution_manager.py
+│   │   ├── execution_request.py
+│   │   ├── execution_result.py
+│   │   ├── process_runner.py
+│   │   ├── timeout_manager.py
+│   │   ├── sandbox_policy.py
+│   │   ├── linux_sandbox.py
+│   │   └── windows_sandbox.py
+│   │
+│   ├── learning/
+│   │   ├── curriculum_engine.py
+│   │   ├── lesson_renderer.py
+│   │   ├── assessment_engine.py
+│   │   ├── adaptive_engine.py
+│   │   ├── spaced_repetition.py
+│   │   ├── prerequisite_checker.py
+│   │   └── learning_scheduler.py
+│   │
+│   └── utilities/
+│       ├── date_utils.py
+│       ├── file_utils.py
+│       ├── markdown_utils.py
+│       ├── export_utils.py
+│       └── system_info.py
+│
+├── content/
+│   ├── manifest.json
+│   ├── courses/
+│   │   ├── python_fundamentals/
+│   │   │   ├── course.json
+│   │   │   ├── modules/
+│   │   │   ├── lessons/
+│   │   │   └── assessments/
+│   │   ├── data_structures/
+│   │   ├── functions/
+│   │   ├── oop/
+│   │   ├── file_handling/
+│   │   ├── professional_python/
+│   │   ├── algorithms/
+│   │   ├── databases/
+│   │   ├── backend/
+│   │   ├── automation/
+│   │   └── ai_data_science/
+│   ├── exercises/
+│   │   ├── beginner/
+│   │   ├── intermediate/
+│   │   └── advanced/
+│   ├── projects/
+│   │   ├── beginner/
+│   │   ├── intermediate/
+│   │   └── advanced/
+│   ├── videos/
+│   │   ├── video_catalog.json
+│   │   └── playlists.json
+│   ├── glossary/
+│   │   ├── uz.json
+│   │   └── en.json
+│   └── localization/
+│       ├── uz.json
+│       └── en.json
+│
+├── assets/
+│   ├── app_icon/
+│   │   ├── icon.svg
+│   │   └── icon.png
+│   ├── icons/
+│   │   ├── navigation/
+│   │   ├── learning/
+│   │   ├── editor/
+│   │   ├── analytics/
+│   │   └── actions/
+│   ├── images/
+│   │   ├── onboarding/
+│   │   ├── courses/
+│   │   ├── projects/
+│   │   ├── achievements/
+│   │   └── empty_states/
+│   ├── fonts/
+│   ├── illustrations/
+│   └── animations/
+│
+├── data/
+│   ├── .gitkeep
+│   ├── backups/
+│   ├── exports/
+│   ├── workspaces/
+│   └── logs/
+│
+├── scripts/
+│   ├── setup_linux.sh
+│   ├── setup_windows.ps1
+│   ├── initialize_database.py
+│   ├── seed_content.py
+│   ├── validate_content.py
+│   ├── create_backup.py
+│   ├── build_linux.sh
+│   └── build_windows.ps1
+│
+├── tests/
+│   ├── unit/
+│   ├── integration/
+│   ├── ui/
+│   ├── security/
+│   ├── fixtures/
+│   └── conftest.py
+│
+├── docs/
+│   ├── ARCHITECTURE.md
+│   ├── DATABASE_SCHEMA.md
+│   ├── UI_GUIDE.md
+│   ├── INSTALLATION.md
+│   ├── SECURITY.md
+│   ├── CURRICULUM.md
+│   ├── AI_INTEGRATION.md
+│   ├── CONTRIBUTOR_GUIDE.md
+│   └── USER_MANUAL.md
+│
+└── packaging/
+    ├── python_mastery.spec
+    ├── linux/
+    └── windows/
+
+Create necessary __init__.py files. Do not create empty modules merely to make the tree look complete. Implement modules in the relevant development phase.
+
+---
+
+# PART 4. FILE AND RESOURCE RULES
+
+## 4.1 Application data locations
+
+Separate source code from user data.
+
+Linux:
+- Source: ~/PythonMastery/
+- Configuration: ~/.config/python-mastery/
+- Database: ~/.local/share/python-mastery/
+- Cache: ~/.cache/python-mastery/
+- Logs: ~/.local/state/python-mastery/logs/
+
+Windows:
+- Configuration: %APPDATA%\PythonMastery\
+- Database: %LOCALAPPDATA%\PythonMastery\data\
+- Cache: %LOCALAPPDATA%\PythonMastery\cache\
+- Logs: %LOCALAPPDATA%\PythonMastery\logs\
+
+Do not store important user data inside the installed application directory.
+
+## 4.2 Content file conventions
+
+Every course must have course.json.
+
+Every lesson must have:
+- lesson.json
+- theory.md
+- examples/
+- exercises.json
+- quiz.json
+- references.json
+
+Every project must have:
+- project.json
+- README.md
+- requirements.md
+- milestones.json
+- evaluation.json
+
+Use unique identifiers, not lesson titles, as database references.
+
+## 4.3 Example lesson.json
+
+{
+  "id": "PY-FND-005",
+  "course_id": "python_fundamentals",
+  "module_id": "control_flow",
+  "order": 5,
+  "title": {
+    "uz": "Shart operatorlari",
+    "en": "Conditional Statements"
+  },
+  "difficulty": "beginner",
+  "estimated_minutes": 45,
+  "prerequisites": [
+    "PY-FND-001",
+    "PY-FND-002"
+  ],
+  "objectives": [
+    "Understand conditional logic",
+    "Use if statements",
+    "Evaluate Boolean expressions"
+  ],
+  "content_file": "theory.md",
+  "exercise_file": "exercises.json",
+  "quiz_file": "quiz.json"
+}
+
+This is an illustrative schema. Validate all references before loading content.
+
+---
+
+# PART 5. GRAPHICAL DESIGN SYSTEM
+
+## 5.1 Brand identity
+
+Name: Python Mastery.
+Visual identity: premium, modern, minimal, professional, technology-oriented, comfortable for long study sessions.
+Primary theme: Dark Emerald / Nephrite.
+
+## 5.2 Color palette
+
+APP_BACKGROUND       #0B1110
+SIDEBAR_BACKGROUND   #101A17
+CARD_BACKGROUND      #14211C
+CARD_HOVER           #1B2C24
+PRIMARY_GREEN        #16A36A
+SECONDARY_GREEN      #39C98A
+ACCENT_GREEN         #75E0AE
+TEXT_PRIMARY         #F0F5F1
+TEXT_SECONDARY       #A3B3AA
+TEXT_MUTED           #718178
+BORDER_COLOR         #263A30
+ERROR_COLOR          #EF6464
+WARNING_COLOR        #E6B65C
+INFO_COLOR           #62A8E8
+SUCCESS_COLOR        #39C98A
+
+Do not use pure black everywhere. Maintain readable contrast. Avoid excessive neon effects.
+
+## 5.3 Typography
+
+- Inter for primary interface typography.
+- JetBrains Mono for code.
+- System fallback fonts.
+
+Recommended sizes:
+- Main title: 28 px.
+- Section title: 22 px.
+- Card title: 16 px.
+- Body: 14 px.
+- Secondary text: 12 px.
+- Code: 14 px.
+- Navigation: 14 px.
+
+Allow users to change font size.
+
+## 5.4 Layout dimensions
+
+Initial target: 1366 × 768.
+Minimum supported: 1024 × 650.
+Recommended: 1440 × 900.
+
+Use responsive Qt layouts, not absolute positioning.
+
+- Sidebar expanded: 240 px.
+- Sidebar collapsed: 72 px.
+- Topbar: 64 px.
+- Main content: flexible width.
+- Default content margin: 24 px.
+- Card spacing: 16–24 px.
+- Use an 8 px spacing scale.
+
+## 5.5 Main application structure
+
+┌─────────────────────────────────────────────────────────────┐
+│ Sidebar │ Topbar: Search | Notifications | Profile          │
+│         ├───────────────────────────────────────────────────┤
+│         │                                                   │
+│         │              Active Screen                        │
+│         │                                                   │
+│         │                                                   │
+│         ├───────────────────────────────────────────────────┤
+│         │ Status: Ready | Python | Study Timer              │
+└─────────────────────────────────────────────────────────────┘
+
+## 5.6 Sidebar navigation
+
+Use this order:
+1. Dashboard.
+2. Learning Path.
+3. My Courses.
+4. Code Lab.
+5. AI Mentor.
+6. Exercises.
+7. Examinations.
+8. Project Lab.
+9. Video Library.
+10. Notes.
+11. Glossary.
+12. Analytics.
+13. Achievements.
+14. Settings.
+
+Bottom section:
+- Current profile.
+- Profile switching.
+- Help.
+- Application version.
+
+Use consistent Lucide-style SVG icons. Do not use emoji as primary navigation icons.
+
+---
+
+# PART 6. REQUIRED APPLICATION SCREENS
+
+Implement each screen as a separate UI class.
+
+## SCREEN 1 — Welcome Screen
+
+Elements:
+- Logo.
+- Product name.
+- Tagline.
+- Start Learning.
+- Sign In.
+- Create Profile.
+- Language selector.
+- Theme selector.
+
+Design: large welcome text on the left, educational illustration on the right, subtle green gradient, minimal decoration.
+
+## SCREEN 2 — Profile Selection
+
+Display:
+- Profile avatar.
+- Username.
+- Last activity.
+- Learning progress.
+- Add profile.
+
+Support multiple local profiles.
+
+## SCREEN 3 — Registration
+
+Fields:
+- Display name.
+- Username.
+- Password if account authentication is enabled.
+- Preferred language.
+- Study goal.
+- Current experience level.
+
+Offline local profiles must not require an online account.
+
+## SCREEN 4 — Onboarding Wizard
+
+Ask:
+1. Have you programmed before?
+2. Do you know Python?
+3. What is your learning goal?
+4. How many minutes can you study daily?
+5. What type of projects interest you?
+6. Which explanation style do you prefer?
+
+Options:
+- Complete Beginner.
+- Basic Knowledge.
+- Intermediate.
+- Advanced.
+
+Follow onboarding with an optional placement test.
+
+## SCREEN 5 — Dashboard
+
+Top greeting: "Good morning, [Student Name]".
+
+Statistics:
+- Learning streak.
+- Completed lessons.
+- Study hours.
+- Average test score.
+
+Main content:
+- Continue Learning card.
+- Current course progress.
+- Daily learning goal.
+- Weekly activity chart.
+
+Bottom:
+- Upcoming assignments.
+- Weak topics.
+- Recommended exercises.
+- Recent achievements.
+
+All statistics must use actual database records.
+
+## SCREEN 6 — Learning Path
+
+Show a vertical or horizontal course roadmap.
+
+Each node:
+- Course number.
+- Course title.
+- Completion percentage.
+- Difficulty.
+- Prerequisite status.
+- Locked/unlocked status.
+
+States:
+- Completed.
+- In progress.
+- Available.
+- Locked.
+
+## SCREEN 7 — Course Catalog
+
+Support:
+- Search.
+- Category filters.
+- Difficulty filters.
+- Progress filters.
+- Course cards.
+- Course descriptions.
+- Estimated study time.
+- Prerequisites.
+
+## SCREEN 8 — Course Detail
+
+Display:
+- Course overview.
+- Learning objectives.
+- Module list.
+- Lesson count.
+- Completion percentage.
+- Start/Continue button.
+- Required prerequisites.
+
+## SCREEN 9 — Lesson Reader
+
+Use a three-column layout when screen size permits.
+
+Left:
+- Course navigation.
+- Module list.
+- Lesson list.
+
+Center:
+- Theory.
+- Code examples.
+- Images.
+- Explanations.
+- Video resources.
+
+Right:
+- Lesson progress.
+- Learning objectives.
+- AI help.
+- Notes.
+- Glossary.
+
+Bottom:
+- Previous lesson.
+- Mark section complete.
+- Next lesson.
+
+Include reading progress and bookmarks.
+
+## SCREEN 10 — Code Lab
+
+Professional IDE-inspired layout:
+
+┌───────────────────────────────────────────────────────────┐
+│ File | Edit | View | Run | Tools                           │
+├────────────┬──────────────────────────────┬───────────────┤
+│ Explorer   │ Code Editor                  │ AI Assistant  │
+│            │                              │               │
+│ project.py │ 1  print("Hello Python")     │ Ask AI        │
+│ main.py    │ 2                            │               │
+├────────────┴──────────────────────────────┴───────────────┤
+│ Output | Errors | Tests | Terminal                         │
+└───────────────────────────────────────────────────────────┘
+
+Required:
+- Python syntax highlighting.
+- Line numbers.
+- Bracket matching.
+- Indentation.
+- Tabs.
+- Search.
+- Run.
+- Stop.
+- Clear console.
+- Save.
+- Open.
+- Auto-save with recovery.
+- Error navigation.
+- Exercise test results.
+
+Do not overload the editor visually.
+
+## SCREEN 11 — AI Mentor
+
+Three-column layout:
+- Left: conversation history and mentor modes.
+- Center: chat messages.
+- Right: current learning context.
+
+Modes:
+- Teacher.
+- Debugger.
+- Code Reviewer.
+- Practice Coach.
+- Socratic Tutor.
+- Project Mentor.
+- Exam Evaluator.
+
+Features:
+- New conversation.
+- Clear conversation with confirmation.
+- Copy response.
+- Regenerate response.
+- Code block copying.
+- Streaming output.
+- Stop generation.
+- Provider/model status.
+
+## SCREEN 12 — Exercises
+
+Display:
+- Exercise title.
+- Difficulty.
+- Topic.
+- Estimated time.
+- Instructions.
+- Examples.
+- Constraints.
+- Input/output examples.
+- Code editor.
+- Run tests.
+- Submit solution.
+- Request hint.
+
+Show passed and failed test cases without exposing hidden tests.
+
+## SCREEN 13 — Examinations
+
+Include:
+- Exam introduction.
+- Duration.
+- Number of questions.
+- Passing score.
+- Start button.
+- Timer.
+- Question navigation.
+- Save answers.
+- Submit confirmation.
+- Results report.
+
+Question types:
+- Multiple-choice.
+- True/false.
+- Code output prediction.
+- Code writing.
+- Debugging.
+
+## SCREEN 14 — Project Lab
+
+Display:
+- Project cards.
+- Difficulty.
+- Requirements.
+- Learning objectives.
+- Milestones.
+- Repository/workspace.
+- Completion status.
+
+Project detail includes:
+- Problem statement.
+- Requirements.
+- Architecture suggestions.
+- Optional hints.
+- Evaluation criteria.
+- Testing requirements.
+
+## SCREEN 15 — Video Library
+
+Provide:
+- Video title.
+- Instructor.
+- Channel.
+- Description.
+- Language.
+- Topic.
+- Duration when verified.
+- YouTube link.
+- Watched status.
+- Related lessons.
+
+Open videos in the external browser by default. Embedded playback may be optional, using a supported and policy-compliant YouTube player.
+
+Never download or redistribute copyrighted videos.
+
+## SCREEN 16 — Notes
+
+Provide:
+- Create note.
+- Edit note.
+- Delete note.
+- Search.
+- Tags.
+- Link note to lesson.
+- Code snippets.
+- Markdown support.
+- Export.
+
+## SCREEN 17 — Glossary
+
+Searchable terminology database.
+
+Each term:
+- English term.
+- Uzbek translation.
+- Definition.
+- Code example.
+- Related topics.
+
+## SCREEN 18 — Analytics
+
+Display:
+- Total study time.
+- Weekly study time.
+- Monthly activity.
+- Course completion.
+- Exercise success rate.
+- Examination history.
+- Topic mastery.
+- Weak topics.
+- Improvement trends.
+
+Provide PDF and CSV export.
+
+## SCREEN 19 — Achievements
+
+Examples:
+- First lesson.
+- First successful program.
+- 5 lessons completed.
+- First project.
+- 7-day streak.
+- 30-day streak.
+- First examination passed.
+- First independent application.
+
+Do not reward meaningless repeated activity.
+
+## SCREEN 20 — Settings
+
+General:
+- Language.
+- Theme.
+- Startup screen.
+
+Appearance:
+- Font.
+- Font size.
+- Sidebar behavior.
+- Animations.
+
+Editor:
+- Font.
+- Tab size.
+- Auto-save.
+- Syntax theme.
+
+AI:
+- Provider.
+- Model.
+- API key.
+- Connection test.
+
+Learning:
+- Daily goal.
+- Reminder preferences.
+- Learning schedule.
+
+Storage:
+- Database location.
+- Backups.
+- Export.
+- Restore.
+
+About:
+- Version.
+- Licenses.
+- Documentation.
+- Changelog.
+
+---
+
+# PART 7. GRAPHICS AND ASSET MANAGEMENT
+
+## 7.1 Icons
+
+Use SVG icons from Lucide.
+
+Store them in assets/icons/, organized into:
+- Navigation.
+- Learning.
+- Editor.
+- Analytics.
+- Actions.
+
+Use a centralized icon loader. Do not embed large SVG strings throughout UI files.
+
+## 7.2 Images
+
+Use original illustrations, licensed educational graphics, original application illustrations, and properly licensed photographs.
+
+Store them in assets/images/.
+
+Every image must have a defined purpose. Use optimized WebP or PNG where appropriate. Do not use random stock images just to fill empty space.
+
+## 7.3 Illustrations
+
+Create original illustrations for:
+- Welcome screen.
+- Empty course state.
+- No search results.
+- Completed course.
+- Achievement unlocked.
+- Project completed.
+- Error state.
+
+Avoid unnecessary decorative images.
+
+## 7.4 Fonts
+
+Place bundled fonts in assets/fonts/. Include font license documentation and support system fallbacks.
+
+## 7.5 Animations
+
+Store animation resources in assets/animations/.
+
+Use lightweight Qt animations for:
+- Sidebar expansion.
+- Page transitions.
+- Card hover.
+- Progress updates.
+- Notification appearance.
+
+Respect reduced-motion preferences.
+
+---
+
+# PART 8. YOUTUBE LEARNING RESOURCE SYSTEM
+
+YouTube is a supplementary learning source. Implement a video resource catalog.
+
+## 8.1 Initial learning resources
+
+Harvard CS50P:
+https://www.youtube.com/watch?v=OvKCESUCWII
+https://www.youtube.com/watch?v=OvKCESUCWII&list=PLhQjrBD2T3817j24-GogXmWqO5Q5vYy0V
+Official course:
+https://pll.harvard.edu/course/cs50s-introduction-programming-python
+
+Corey Schafer:
+https://www.youtube.com/playlist?list=PL-osiE80TeTt2d9bfVyTiXJA-UTHn6WwU
+
+freeCodeCamp:
+https://www.youtube.com/watch?v=rfscVS0vtbw
+
+Official Python documentation:
+https://docs.python.org/3/
+Python tutorial:
+https://docs.python.org/3/tutorial/
+
+Treat these as candidate references. Verify that each URL is available and that its content matches the associated topic before publishing it.
+
+## 8.2 Video catalog
+
+Create content/videos/video_catalog.json.
+
+Example:
+
+{
+  "id": "VIDEO-CS50P-001",
+  "title": "CS50P Introduction",
+  "provider": "YouTube",
+  "channel": "CS50",
+  "url": "https://www.youtube.com/watch?v=OvKCESUCWII",
+  "language": "en",
+  "difficulty": "beginner",
+  "topics": ["introduction", "programming", "python"],
+  "related_course": "python_fundamentals",
+  "related_lessons": [],
+  "verified": false
+}
+
+Set verified=true only after an actual verification.
+
+## 8.3 Video assignment rules
+
+For every major topic, provide:
+- At least one relevant video when a suitable verified resource exists.
+- A written Uzbek explanation.
+- A practical exercise.
+- A short review quiz.
+
+Do not assign an entire multi-hour playlist to one lesson. Break playlists into relevant video references.
+
+Prefer official channels. Check links before publishing. If a video is unavailable, label it unavailable and provide an alternative.
+
+Never invent video durations, chapter timestamps, or instructor names.
+
+## 8.4 Video tracking
+
+Track:
+- Video opened.
+- Video marked watched.
+- User's optional watched percentage.
+- Related lesson.
+- User notes.
+
+Do not claim to know actual playback progress unless the player integration genuinely provides it.
+
+---
+
+# PART 9. COMPLETE UNIVERSAL PYTHON CURRICULUM
+
+Create a comprehensive curriculum from absolute beginner to advanced practical Python.
+
+COURSE 01 — Programming Foundations
+- What is programming?
+- What is an algorithm?
+- What is Python?
+- Installing Python.
+- IDE and terminal.
+- First Python program.
+- print().
+- Comments.
+- Basic syntax.
+
+COURSE 02 — Variables and Data Types
+- Variables.
+- Strings.
+- Integers.
+- Floats.
+- Booleans.
+- Type conversion.
+- input().
+- Operators.
+- String formatting.
+
+COURSE 03 — Control Flow
+- Comparison operators.
+- Boolean expressions.
+- if.
+- elif.
+- else.
+- Nested conditions.
+- for loops.
+- while loops.
+- break.
+- continue.
+- pass.
+
+COURSE 04 — Data Structures
+- Lists.
+- Tuples.
+- Sets.
+- Dictionaries.
+- Indexing.
+- Slicing.
+- Methods.
+- Comprehensions.
+- Nested structures.
+
+COURSE 05 — Functions
+- Defining functions.
+- Parameters.
+- Arguments.
+- Return.
+- Default arguments.
+- Keyword arguments.
+- Scope.
+- Lambda.
+- Recursion.
+- Docstrings.
+
+COURSE 06 — Object-Oriented Programming
+- Classes.
+- Objects.
+- Constructors.
+- Instance attributes.
+- Class attributes.
+- Methods.
+- Encapsulation.
+- Inheritance.
+- Polymorphism.
+- Abstraction.
+- Composition.
+- Special methods.
+
+COURSE 07 — Files and Exceptions
+- Reading files.
+- Writing files.
+- File paths.
+- JSON.
+- CSV.
+- try.
+- except.
+- else.
+- finally.
+- Custom exceptions.
+- Context managers.
+
+COURSE 08 — Modules and Packages
+- import.
+- from import.
+- Standard library.
+- pip.
+- Virtual environments.
+- Package structure.
+- requirements.
+- Project configuration.
+
+COURSE 09 — Advanced Python
+- Iterators.
+- Generators.
+- Decorators.
+- Closures.
+- Context managers.
+- Type hints.
+- Dataclasses.
+- Enums.
+- Logging.
+- Memory concepts.
+- Performance basics.
+
+COURSE 10 — Algorithms and Data Structures
+- Big O.
+- Linear search.
+- Binary search.
+- Sorting.
+- Stacks.
+- Queues.
+- Linked lists.
+- Hash tables.
+- Trees.
+- Graph fundamentals.
+- Recursion.
+- Problem solving.
+
+COURSE 11 — Software Engineering
+- Git.
+- GitHub.
+- Branches.
+- Commits.
+- Code review.
+- Clean code.
+- SOLID fundamentals.
+- Pytest.
+- Unit testing.
+- Integration testing.
+- Debugging.
+- Documentation.
+
+COURSE 12 — Databases
+- Relational databases.
+- SQL.
+- Tables.
+- Relationships.
+- SELECT.
+- INSERT.
+- UPDATE.
+- DELETE.
+- JOIN.
+- Indexes.
+- SQLite.
+- PostgreSQL.
+- SQLAlchemy.
+- Migrations.
+
+COURSE 13 — Web and Backend
+- HTTP.
+- JSON APIs.
+- REST.
+- FastAPI.
+- Routes.
+- Requests.
+- Responses.
+- Validation.
+- Authentication.
+- Authorization.
+- API testing.
+- Deployment.
+
+COURSE 14 — Automation
+- Operating system interaction.
+- Filesystem automation.
+- CSV and Excel processing.
+- Requests.
+- Web APIs.
+- Scheduling.
+- Automation scripts.
+- Browser automation.
+- Error handling.
+
+COURSE 15 — Asynchronous Python
+- Processes.
+- Threads.
+- Async functions.
+- await.
+- asyncio.
+- Concurrent tasks.
+- Synchronization.
+- Practical use cases.
+
+COURSE 16 — Data Science and AI Fundamentals
+- NumPy.
+- Pandas.
+- Data cleaning.
+- Data analysis.
+- Matplotlib.
+- Statistics fundamentals.
+- Machine learning introduction.
+- Model training concepts.
+- Model evaluation.
+- AI API integration.
+
+COURSE 17 — Professional Development
+- Architecture.
+- Security.
+- Configuration management.
+- Environment variables.
+- Logging.
+- Monitoring.
+- Performance.
+- Packaging.
+- Deployment.
+- Portfolio.
+- Technical interviews.
+
+Each course must contain multiple detailed modules and lessons. Do not create empty course shells and call the curriculum complete. Write actual educational material.
+
+---
+
+# PART 10. 90-DAY INTENSIVE LEARNING PROGRAM
+
+Create a separate structured 90-day learning path.
+
+Default: 60 minutes daily.
+Optional: 120 or 180 minutes daily.
+
+Each day must contain:
+- Learning objective.
+- Theory.
+- Example.
+- Video reference when available.
+- Practical coding.
+- Homework.
+- Knowledge check.
+- Estimated time.
+
+Suggested structure:
+
+Days 1–15:
+Programming fundamentals, variables, data types, conditions, loops.
+
+Days 16–30:
+Data structures, functions, problem solving.
+
+Days 31–45:
+OOP, exceptions, file handling, JSON and CSV.
+
+Days 46–60:
+Modules, packages, virtual environments, Git, testing and professional Python.
+
+Days 61–75:
+SQL, databases, SQLAlchemy, HTTP and FastAPI.
+
+Days 76–90:
+Automation, API integrations, testing, security, deployment fundamentals and final project.
+
+Every five lessons: create a review project.
+
+Every 15 days: create a checkpoint examination.
+
+Day 90: complete a capstone project and competency assessment.
+
+Important:
+90 minutes? No. One hour daily equals approximately 90 learning hours over 90 days. This is an intensive foundation and Junior-level preparation plan, not a guarantee of advanced professional mastery or employment.
+
+Allow the system to recommend additional learning time when necessary.
+
+---
+
+# PART 11. MULTI-USER ARCHITECTURE
+
+Each user must have:
+- Separate profile.
+- Separate progress.
+- Separate learning plan.
+- Separate notes.
+- Separate assignments.
+- Separate examination history.
+- Separate AI history.
+- Separate preferences.
+
+Initial release: local desktop profiles.
+Future architecture: optional online accounts and synchronization.
+
+Roles:
+- Student.
+- Instructor.
+- Content Author.
+- Administrator.
+
+Do not implement fake cloud functionality. Core desktop education features must work offline. AI and external videos require internet access.
+
+---
+
+# PART 12. DATABASE DESIGN
+
+Implement relational database tables.
+
+users:
+- id
+- username
+- display_name
+- password_hash if authentication is enabled
+- role
+- created_at
+- last_active_at
+
+user_profiles:
+- user_id
+- preferred_language
+- experience_level
+- daily_goal_minutes
+- learning_goal
+- avatar_path
+
+courses:
+- id
+- title
+- description
+- difficulty
+- version
+
+modules:
+- id
+- course_id
+- title
+- order_index
+
+lessons:
+- id
+- module_id
+- title
+- content_path
+- estimated_minutes
+- order_index
+
+lesson_progress:
+- id
+- user_id
+- lesson_id
+- status
+- completion_percentage
+- started_at
+- completed_at
+
+exercise_submissions:
+- id
+- user_id
+- exercise_id
+- source_code
+- test_result
+- score
+- submitted_at
+
+examination_attempts:
+- id
+- user_id
+- examination_id
+- score
+- passed
+- started_at
+- completed_at
+
+projects:
+- id
+- title
+- description
+- difficulty
+
+user_projects:
+- id
+- user_id
+- project_id
+- status
+- workspace_path
+- started_at
+- completed_at
+
+study_sessions:
+- id
+- user_id
+- started_at
+- ended_at
+- duration_seconds
+- activity_type
+
+knowledge_mastery:
+- id
+- user_id
+- concept_id
+- mastery_level
+- confidence_score
+- last_assessed_at
+
+ai_conversations:
+- id
+- user_id
+- title
+- provider
+- model
+- created_at
+
+ai_messages:
+- id
+- conversation_id
+- role
+- content
+- created_at
+
+video_resources:
+- id
+- title
+- url
+- channel
+- language
+- topic
+
+user_video_progress:
+- id
+- user_id
+- video_id
+- status
+- watched_percentage
+
+notes:
+- id
+- user_id
+- lesson_id
+- title
+- content
+- created_at
+- updated_at
+
+achievements:
+- id
+- title
+- description
+- criteria
+
+user_achievements:
+- id
+- user_id
+- achievement_id
+- unlocked_at
+
+settings:
+- id
+- user_id
+- key
+- value
+
+Create appropriate foreign keys, indexes, uniqueness constraints and cascading behavior.
+
+Never rely exclusively on UI filtering for data isolation. Every user-specific query must enforce ownership.
+
+---
+
+# PART 13. AI MENTOR ARCHITECTURE
+
+Implement:
+- BaseProvider: common provider interface.
+- ProviderRegistry: available provider discovery.
+- AIManager: provider and model selection.
+- ContextBuilder: build student-specific context.
+- PromptManager: load appropriate system prompts.
+- MentorEngine: manage teaching behavior.
+- ResponseValidator: validate and format AI responses.
+- CodeAnalyzer: analyze submitted code.
+- ExerciseGenerator: create exercises based on the current syllabus.
+
+## AI teaching rules
+
+The AI must:
+- Teach in Uzbek.
+- Retain English technical terminology.
+- Explain code line by line when necessary.
+- Identify missing prerequisites.
+- Prefer hints before answers.
+- Avoid inventing Python behavior.
+- Distinguish facts from suggestions.
+- Encourage independent problem solving.
+- Never claim to have executed code unless execution actually occurred.
+
+AI context must be scoped to the current user.
+
+Do not send passwords, API keys, or unnecessary personal information to AI providers.
+
+## Mentor prompt files
+
+teacher.md: explain concepts.
+debugger.md: diagnose errors.
+reviewer.md: evaluate code quality.
+exam_evaluator.md: evaluate student answers.
+project_mentor.md: guide project development.
+
+All prompts must have version identifiers.
+
+---
+
+# PART 14. CODE EXECUTION SECURITY
+
+Student-submitted code is untrusted.
+
+Never execute it directly inside the main application process.
+
+Implement a dedicated execution service.
+
+Requirements:
+- Separate process.
+- Execution timeout.
+- Output size limit.
+- Resource restrictions where supported.
+- Controlled working directory.
+- No access to application secrets.
+- No unrestricted access to user files.
+- No unrestricted network access.
+- Process cleanup.
+- Termination handling.
+
+Linux:
+Use an appropriate sandbox such as a restricted container or another tested isolation mechanism.
+
+Windows:
+Use a separate restricted execution mechanism and document its limitations.
+
+Do not claim ordinary subprocess execution is secure.
+
+If a secure environment is unavailable, disable unrestricted code execution and provide a clearly labeled restricted alternative.
+
+---
+
+# PART 15. TESTING AND QUALITY ASSURANCE
+
+Every module must have tests.
+
+Unit tests:
+- Database.
+- Services.
+- Progress calculations.
+- Learning logic.
+- Assessment scoring.
+- AI context isolation.
+
+Integration tests:
+- Database and services.
+- Lesson loading.
+- Exercise submission.
+- AI provider integration.
+- Backup and restore.
+
+UI tests:
+- Main navigation.
+- Login/profile switching.
+- Lesson reader.
+- Code editor.
+- Settings.
+- Dialogs.
+
+Security tests:
+- Cross-user data access.
+- Malformed inputs.
+- Execution timeout.
+- File access boundaries.
+- Secret leakage.
+- Database permissions.
+
+Run tests before every release.
+
+Requirements:
+- Critical business logic must have strong automated test coverage.
+- No release with known critical security defects.
+- No fake passing tests.
+
+---
+
+# PART 16. PERFORMANCE AND HARDWARE OPTIMIZATION
+
+Target development computer:
+- Intel Core i3-10110U.
+- 8 GB RAM.
+- Intel UHD Graphics.
+- NVIDIA MX130 2 GB.
+
+Requirements:
+- No unnecessary background processes.
+- Lazy-load course content.
+- Avoid loading all images at startup.
+- Limit simultaneous chart rendering.
+- Use Qt threading for blocking tasks.
+- Keep UI responsive during AI requests.
+- Use asynchronous networking or worker threads.
+- Cache static resources.
+- Avoid mandatory local LLM models.
+- Keep application startup lightweight.
+
+The application must remain usable on ordinary computers without dedicated GPUs.
+
+---
+
+# PART 17. LOCALIZATION
+
+Implement Uzbek and English translations.
+
+Store translations in:
+content/localization/uz.json
+content/localization/en.json
+
+Never hardcode interface text throughout UI classes. Use translation keys.
+
+Example:
+
+{
+  "dashboard.title": "Bosh sahifa",
+  "dashboard.continue": "Davom etish",
+  "lesson.next": "Keyingi dars",
+  "lesson.previous": "Oldingi dars",
+  "mentor.title": "AI ustoz"
+}
+
+Keep English programming terms visible alongside Uzbek explanations.
+
+---
+
+# PART 18. BACKUP AND RECOVERY
+
+Implement:
+- Manual backup.
+- Automatic scheduled backup.
+- Restore from backup.
+- Database integrity check.
+- Export user learning data.
+- Import user learning data.
+- Recovery after interrupted writes.
+
+Do not silently overwrite an existing backup. Show backup date and file size.
+
+---
+
+# PART 19. PACKAGING AND INSTALLATION
+
+Linux:
+- Create virtual environment.
+- Install dependencies.
+- Initialize database.
+- Create launcher.
+- Build distributable application.
+- Test in a clean environment.
+
+Windows:
+- Create virtual environment.
+- Install dependencies.
+- Build executable.
+- Create installer if practical.
+- Test in a clean Windows environment.
+
+Installation must not require manually editing source code.
+
+Provide:
+- Installation guide.
+- Troubleshooting.
+- Uninstallation guide.
+- Upgrade guide.
+
+---
+
+# PART 20. DEVELOPMENT MILESTONES
+
+Develop in this sequence.
+
+PHASE 1 — PROJECT FOUNDATION
+- Directory structure.
+- Dependency setup.
+- Configuration.
+- Logging.
+- Database.
+- Application bootstrap.
+
+PHASE 2 — UI FOUNDATION
+- Theme.
+- Main window.
+- Sidebar.
+- Topbar.
+- Navigation.
+- Welcome screen.
+- Profile management.
+
+PHASE 3 — LEARNING SYSTEM
+- Course catalog.
+- Modules.
+- Lesson reader.
+- Curriculum engine.
+- Progress persistence.
+
+PHASE 4 — CONTENT DEVELOPMENT
+- Beginner curriculum.
+- Lesson material.
+- Code examples.
+- Exercises.
+- Quizzes.
+- Video resources.
+
+PHASE 5 — CODE LAB
+- Editor.
+- Console.
+- Execution service.
+- Exercise integration.
+- Test results.
+
+PHASE 6 — ASSESSMENT
+- Quiz engine.
+- Examination engine.
+- Scoring.
+- Feedback.
+- Mastery tracking.
+
+PHASE 7 — AI MENTOR
+- Provider adapters.
+- Context building.
+- Chat interface.
+- Debugger.
+- Reviewer.
+- Tutor modes.
+
+PHASE 8 — PROJECT LAB
+- Project catalog.
+- Workspaces.
+- Milestones.
+- Evaluation.
+
+PHASE 9 — ANALYTICS
+- Progress charts.
+- Weak-topic detection.
+- Recommendations.
+- Export.
+
+PHASE 10 — RELEASE
+- Security audit.
+- Testing.
+- Optimization.
+- Packaging.
+- Documentation.
+
+Do not skip phases to make the application look complete sooner.
+
+---
+
+# PART 21. DEVELOPMENT EXECUTION RULES FOR THE AI CODING AGENT
+
+Mandatory rules:
+
+1. Inspect the real environment before modifying it.
+2. Do not assume dependencies are installed.
+3. Never overwrite unrelated user files.
+4. Create a Git checkpoint after major milestones.
+5. Work with real files, not hypothetical code.
+6. Keep the application runnable after each milestone.
+7. Test every important implementation.
+8. Fix errors before moving forward.
+9. Do not leave core features as TODO placeholders.
+10. Never use fake database data in production functionality.
+11. Do not claim completion without verification.
+12. Do not create enormous unmaintainable source files.
+13. Do not duplicate business logic in UI components.
+14. Keep the application modular.
+15. Document architectural decisions.
+16. Update CHANGELOG.md.
+17. Preserve all existing working functionality.
+18. Never remove user data during updates.
+19. Explain any deviation from this specification.
+20. Prioritize working software over decorative mockups.
+
+After every phase, report:
+- Completed features.
+- Created files.
+- Modified files.
+- Tests executed.
+- Test results.
+- Known issues.
+- Remaining work.
+- Exact command to launch the application.
+
+If the execution environment is chat-only, provide complete files in manageable batches and do not pretend to have created or tested them.
+
+---
+
+# PART 22. DEFINITION OF DONE
+
+The application is not complete merely because its main window opens.
+
+The first production-ready release must satisfy:
+
+[ ] Application launches on Linux.
+[ ] Application launches on Windows.
+[ ] Multiple local profiles work.
+[ ] User data remains isolated.
+[ ] Course catalog works.
+[ ] Lessons load from external content files.
+[ ] Lessons can be completed and progress is saved.
+[ ] Diagnostic assessment works.
+[ ] Learning path works.
+[ ] Code editor works.
+[ ] Code execution has documented isolation.
+[ ] Exercises can be submitted.
+[ ] Automated tests evaluate solutions.
+[ ] Examinations work.
+[ ] AI Mentor communicates through a configured provider.
+[ ] AI receives the correct user's learning context.
+[ ] AI conversations are saved.
+[ ] Video links open correctly.
+[ ] Video resources are associated with lessons.
+[ ] Projects have actual requirements and milestones.
+[ ] Analytics use real learning records.
+[ ] Notes are saved and searchable.
+[ ] Uzbek and English interfaces work.
+[ ] Theme switching works.
+[ ] Backup and restore work.
+[ ] Documentation is complete.
+[ ] Automated tests pass.
+
+Do not mark an item complete until verified.
+
+---
+
+# PART 23. FIRST COMMAND TO EXECUTE
+
+You are now responsible for implementing this entire product.
+
+Start by inspecting:
+- Operating system.
+- Python version.
+- Available memory.
+- Available disk space.
+- Installed development tools.
+
+Then produce:
+1. A short environment report.
+2. A technical implementation plan.
+3. A dependency compatibility report.
+4. The initial directory structure.
+5. The first functional application shell.
+
+Create the actual project at the configured project location.
+
+The first deliverable must be a running desktop application with:
+- Python Mastery branding.
+- Dark Emerald theme.
+- Sidebar navigation.
+- Topbar.
+- Dashboard.
+- Profile selection.
+- Database initialization.
+- Persistent settings.
+
+Do not stop after writing a plan.
+
+Implement the first working version, run it, inspect errors, and fix them.
+
+Continue implementing the remaining phases until all mandatory requirements have been completed and tested.
+
+FINAL PRODUCT PRINCIPLE:
+
+Python Mastery must be a universal, scalable, reliable, attractive, and genuinely useful Python education platform.
+
+It must help a complete beginner become an independent programmer through structured teaching, practical exercises, AI guidance, real projects, and measurable competency assessments.
+
+Build the actual product. Do not merely describe it.
+
+---
+
+# APPENDIX A. CLAUDE DEVELOPMENT CONTINUATION PROMPT
+
+Use this prompt after a development phase is completed:
+
+Continue Python Mastery development according to the master specification.
+
+Before starting the next phase:
+
+1. Inspect all existing project files.
+2. Identify incomplete features.
+3. Run the relevant automated tests.
+4. Fix existing errors.
+5. Verify that previous functionality still works.
+6. Check database migrations and user data integrity.
+7. Update documentation and CHANGELOG.md.
+8. Report exactly what has been implemented and tested.
+
+Do not replace working functionality with placeholders or mockups.
+
+Do not skip unfinished requirements.
+
+After verification, continue with the next incomplete development phase.
+
+Maintain the existing architecture and visual design.
+
+# APPENDIX B — MASTER EDUCATIONAL CONTENT, LESSON DEPTH, PEDAGOGY AND UX SPECIFICATION
+# VERSION 2.0 ADDENDUM — MANDATORY, NOT OPTIONAL
+
+This appendix extends the original master specification. It does not replace or weaken any existing requirement. If a detail is more specific here than in an earlier section, follow this appendix. The goal is not to create a large-looking application with shallow placeholder lessons. The goal is to build a rigorous, deeply educational, beginner-friendly Python learning system whose content is accurate, substantial, structured, progressive, and genuinely teaches independent problem solving.
+
+## B1. NON-NEGOTIABLE EDUCATIONAL STANDARD
+
+The application must teach concepts, not merely list definitions or show code snippets. Every lesson must answer:
+1. What is this concept?
+2. Why does it exist, and what problem does it solve?
+3. When should a programmer use it, and when should they not?
+4. How does it work internally at the level appropriate to the learner?
+5. How is it written in Python syntax?
+6. What happens when the code runs, step by step?
+7. What common mistakes occur, why do they occur, and how are they fixed?
+8. How does this concept connect to previously learned concepts?
+9. How is it used in realistic programs and projects?
+10. Can the learner solve a new problem independently after the lesson?
+
+Do not treat a short definition, one code sample, or a video link as a complete lesson. Do not inflate lesson length with repetition, filler, generic motivational text, or irrelevant history. Depth must come from clear explanations, carefully sequenced examples, mental models, tracing, practice, feedback, and meaningful applications.
+
+The teaching language is natural, grammatically correct Uzbek. Keep Python keywords, syntax, library names, and standard technical terms in English, then explain them in Uzbek at first use. Example: “Variable (o‘zgaruvchi) — qiymatga nom orqali murojaat qilish imkonini beradi.” Do not translate Python syntax or invent nonstandard Uzbek equivalents for keywords. Provide an optional English terminology toggle or glossary, without making English knowledge a prerequisite for understanding the lesson.
+
+## B2. LESSON CONTENT VOLUME AND DEPTH
+
+Use the following as quality targets, not rigid word-count quotas. A simple concept may need less text; a foundational or difficult concept may need substantially more. Never pad content to meet a number. Split a topic into multiple lessons if a single lesson becomes overloaded.
+
+For a typical 45–60 minute beginner lesson, target:
+- A concise overview and measurable outcomes.
+- Approximately 700–1,400 meaningful Uzbek words of explanation where the concept warrants it.
+- 3–6 carefully explained code examples, from simplest to realistic.
+- At least one line-by-line or execution-trace walkthrough for a new or nontrivial concept.
+- 1–3 visual aids, tables, diagrams, memory models, or flowcharts when they genuinely clarify the concept.
+- 5–8 practice tasks across multiple difficulty levels.
+- 5–10 knowledge-check questions, including more than simple definition recall.
+- A practical homework task that requires independent application.
+- A summary, glossary entries, common mistakes, and links to prerequisites/next lessons.
+
+For a complex topic (functions, recursion, OOP, decorators, generators, SQL joins, async, APIs, security, etc.), create a sequence of smaller lessons. Do not compress a major topic into one superficial page merely to fit the 90-day plan. The full curriculum is the source of truth; the 90-day path is a guided subset/intensive route through it, not a reason to omit important material.
+
+Every lesson must include an estimated time breakdown that totals the lesson duration, for example: explanation 12 min, guided examples 10 min, guided practice 15 min, independent exercise 15 min, review 5 min. Make the time estimate realistic and adjustable.
+
+## B3. REQUIRED STANDARD LESSON TEMPLATE
+
+Every lesson content package must contain the following sections when applicable. If a section is not relevant, omit it intentionally rather than filling it with generic text.
+
+1. Lesson identity
+   - Unique stable lesson ID; course/module IDs; sequence number; title in Uzbek and English; difficulty; estimated time; version; prerequisites.
+2. Why this lesson matters
+   - A real problem or relatable scenario that motivates the concept.
+3. Learning outcomes
+   - 3–6 observable outcomes using verbs such as explain, predict, write, debug, compare, choose, or build. Avoid vague goals such as “understand Python”.
+4. Prerequisite check
+   - Short diagnostic questions or a tiny task to confirm readiness. If prerequisites are missing, offer a brief review path without shaming or blocking unnecessarily.
+5. Concept explanation
+   - Start with plain-language intuition, then precise definition, syntax, rules, limitations, and deeper mechanics appropriate to the level.
+6. Mental model / analogy
+   - Use an accurate everyday analogy where useful. Explicitly state where the analogy stops being accurate; never let an analogy replace the real explanation.
+7. Syntax and structure
+   - Explain syntax elements, punctuation, indentation, arguments, return values, types, and relevant conventions. Explain why syntax errors occur.
+8. Worked examples
+   - Example A: simplest possible example.
+   - Example B: a slightly modified example that exposes a new rule.
+   - Example C: practical/realistic example.
+   - Example D: common wrong implementation and corrected version.
+   - Add more examples for complex topics. Explain expected output and execution sequence.
+9. Code tracing
+   - Walk through the program in execution order. For loops/functions/recursion/data structures, show changing values or a trace table when useful.
+10. Common mistakes and debugging
+   - Show the incorrect code, exact symptom/error, root cause, corrected code, and a prevention tip. Include beginner mistakes, not just rare edge cases.
+11. Compare and choose
+   - Compare similar concepts when relevant (e.g., list vs tuple, == vs is, for vs while, return vs print, mutable vs immutable). Explain selection criteria and trade-offs.
+12. Practical guided exercise
+   - Give a small task, constraints, hints available on request, expected behavior, and tests. Do not reveal the full solution immediately.
+13. Independent practice
+   - Multiple tasks with increasing difficulty and clear acceptance criteria.
+14. Real-world application
+   - Explain where the concept appears in scripts, applications, APIs, databases, automation, or other relevant work.
+15. Summary / key takeaways
+   - Concise recap of the essential mental models and rules.
+16. Glossary
+   - English term, Uzbek explanation, pronunciation only if useful, example, related terms.
+17. Knowledge check
+   - Questions that test recall, comprehension, code tracing, debugging, and transfer to a new situation.
+18. Homework
+   - A practical task with requirements, hints, test cases or rubric, estimated time, and optional extension challenge.
+19. References
+   - Official Python documentation and carefully verified supplementary resources. Cite/attribute external material where applicable. Never invent links, authors, timestamps, or claims.
+20. Completion criteria
+   - Explicit evidence the learner must demonstrate before the lesson is considered mastered.
+
+## B4. EXAMPLE QUALITY RULES
+
+Examples must be runnable, correct, and relevant to the learner's current level.
+- Introduce no unexplained syntax, library, function, or concept before teaching it. If a small prerequisite is unavoidable, explain it briefly and label it as a preview.
+- Use meaningful variable and function names. Avoid unexplained single-letter names except conventional counters or mathematical examples.
+- Show expected output exactly and explain why it appears.
+- Keep examples small enough to understand; grow them progressively.
+- Include both successful and failing examples when failure teaches an important rule.
+- Use realistic examples from daily life, study, finance calculations, files, simple games, web services, and automation where suitable.
+- Avoid examples that normalize insecure practices, hardcoded secrets, unsafe eval/exec, or careless file deletion.
+- Do not copy the same example with only variable names changed to simulate lesson depth.
+- Explain every new operator, built-in, method, argument, and imported dependency.
+- Ensure code examples are tested with the supported Python version before publishing. Store expected output and test metadata with the content.
+
+## B5. PRACTICE, EXERCISES AND FEEDBACK SYSTEM
+
+Every lesson should provide a balanced exercise ladder:
+- Level 1 — Recognition: identify syntax or predict a simple output.
+- Level 2 — Guided: complete missing lines or fix a small error.
+- Level 3 — Independent: solve a clearly specified problem from scratch.
+- Level 4 — Applied: use the concept in a realistic mini-task.
+- Level 5 — Challenge: combine multiple previously learned concepts, clearly marked optional when advanced.
+
+Exercise requirements:
+- Each task has a unique ID, topic tags, difficulty, estimated time, instructions, input/output examples, constraints, starter code where useful, visible tests, hidden tests where appropriate, hints, and scoring rubric.
+- Hidden tests must not be disclosed to learners. Do not expose their expected values through UI, logs, AI hints, or source bundles.
+- Provide useful feedback: identify what passed, what failed, the relevant concept, and a next hint. Do not merely say “Wrong”.
+- Hints must be progressive: conceptual hint first, structural hint second, near-solution hint last. Do not reveal the final answer unless the learner requests it or the instructional mode permits it.
+- After repeated failure, diagnose likely prerequisite gaps and offer a short refresher.
+- Accept more than one valid solution unless the task explicitly requires a specific technique. Grade behavior and requirements, not superficial code style alone.
+- Separate correctness, readability, efficiency, and style in feedback.
+- Never claim an answer is correct without actually evaluating it against tests or a transparent rubric.
+
+## B6. QUIZZES, EXAMS AND MASTERY
+
+Do not measure mastery solely by multiple-choice questions. Assess a mix of:
+- Concept explanation in the learner's own words.
+- Predicting program output.
+- Finding and correcting bugs.
+- Writing code from a specification.
+- Choosing between alternative approaches and explaining why.
+- Applying knowledge in an unfamiliar context.
+
+Provide immediate explanations for practice quizzes. For formal exams, follow the configured exam rules and reveal explanations after submission.
+
+A recommended mastery model:
+- Not started.
+- Learning.
+- Practicing.
+- Needs review.
+- Proficient.
+- Mastered.
+
+A lesson should not be marked “Mastered” simply because the learner opened it or watched a video. Define configurable thresholds based on practice success, quiz performance, and independent task completion. Save attempts and allow review. Avoid punishing a learner for retries.
+
+Implement spaced review: revisit important concepts after configurable intervals (for example, 1, 3, 7, 14, and 30 days), adjusting based on performance. Provide a review queue and explain why a concept is being revisited.
+
+## B7. CURRICULUM COMPLETENESS AND SEQUENCING
+
+Expand the existing 17 courses into a complete hierarchical syllabus:
+Course → Module → Topic → Lesson → Section → Example → Exercise → Quiz → Project.
+
+For every course, create:
+- Course overview, prerequisites, outcomes, and estimated workload.
+- Detailed module map and dependency graph.
+- Complete lesson list with unique IDs and correct order.
+- Actual written lesson content, not just titles.
+- Exercises and assessments tied to the taught concepts.
+- At least one meaningful course project or applied assessment where appropriate.
+- Course completion rubric and next-step recommendations.
+
+Ensure the curriculum progresses without unexplained jumps. Add missing foundational material when required, including but not limited to: terminal basics, installing and selecting Python interpreters, editor/IDE use, expressions and statements, truthiness, mutability, references, function arguments, scope, imports, exceptions, testing, debugging, Git workflow, environment management, packaging, HTTP fundamentals, security basics, and deployment concepts.
+
+Do not teach advanced topics before prerequisites. For each lesson, explicitly record prerequisite IDs and validate that the dependency graph has no accidental cycles or broken references. Distinguish essential knowledge from optional enrichment.
+
+The 90-day plan must map each day to actual lesson IDs and exercise/project IDs. Do not make up daily lesson titles disconnected from the real course content. Each day must fit the configured time budget, include retrieval practice, and provide a fallback shorter session. If a learner needs more time, allow the path to extend beyond day 90 rather than rushing or pretending mastery.
+
+Every five lessons, include a cumulative review project or substantial practical review. Every 15 days, include a checkpoint assessment with a remediation path. The final capstone must combine skills taught earlier and be assessed with a transparent rubric. Clearly state that 90 days at one hour daily is about 90 study hours and cannot guarantee professional mastery or employment.
+
+## B8. PERSONALIZED TEACHING AND ADAPTIVE LEARNING
+
+Onboarding should establish prior experience, goals, available time, preferred explanation style, and accessibility preferences. Use a diagnostic test to estimate the learner's starting level; do not assume every learner starts at zero.
+
+Adaptation rules:
+- If the learner is new, define terms and explain each step.
+- If the learner already knows a topic, use a short diagnostic challenge and allow a skip recommendation.
+- If errors repeat, explain the misconception and revisit the prerequisite.
+- If the learner solves tasks easily, offer a harder transfer task, not just more repetitive questions.
+- If the learner has limited time, preserve essential learning outcomes and defer optional enrichment.
+- Do not skip foundational concepts solely because the learner asks to move quickly; confirm competency first.
+- Allow the learner to choose a slower or faster pace and to revisit any completed lesson.
+
+AI tutor behavior:
+- Default to Socratic guidance: ask a small leading question or provide a hint before giving the complete solution.
+- When the learner explicitly asks for a full explanation, explain fully and thoroughly.
+- Use the learner's actual completed lessons and attempts as context; never pretend they studied something they have not.
+- Do not introduce concepts beyond the current level without labeling them as advanced preview.
+- Correct misconceptions kindly and specifically.
+- If uncertain about a technical fact, say so and recommend an authoritative reference; do not fabricate.
+
+## B9. CONTENT AUTHORING, VALIDATION AND VERSIONING
+
+Keep educational content outside UI source code in structured JSON/Markdown files as already specified. Define a strict schema and validate every content package before it can be published.
+
+Required validation checks:
+- Unique IDs and valid references.
+- Correct lesson ordering and prerequisite graph.
+- Uzbek and English localization keys where required.
+- No missing theory, examples, exercises, quizzes, or references for mandatory lessons.
+- Code examples parse and execute in a restricted test environment.
+- Expected outputs match actual outputs.
+- Links are checked periodically and marked with verification date/status.
+- No broken images, missing assets, or invalid video IDs.
+- No hidden-test leakage.
+- No duplicate or near-duplicate lessons used to inflate course size.
+- Content version and compatibility metadata are recorded.
+
+Each lesson must have metadata such as: content_version, status (draft/reviewed/published), author/reviewer, last_reviewed_at, Python version range, estimated_minutes, difficulty, prerequisite IDs, learning outcome IDs, and references. Do not mark content as reviewed or verified unless the check was actually performed.
+
+Create an editorial workflow: draft → technical review → language review → exercise/test validation → published. AI-generated educational content must be reviewed and tested before being presented as verified course material. Do not silently overwrite learner progress when content is updated; preserve historical attempts and map progress safely across versions.
+
+## B10. LESSON READER — DETAILED UX REQUIREMENTS
+
+The Lesson Reader is a primary product screen and must receive exceptional design attention.
+
+Desktop layout at sufficiently wide resolutions:
+- Left navigation rail/panel: course, modules, lessons, completion states, collapsible groups, current lesson highlight, and search within course.
+- Center reading column: constrained readable line width, lesson title, difficulty/time metadata, outcomes, section headings, rich text, callouts, tables, diagrams, code blocks, examples, embedded exercises, and references.
+- Right contextual panel: lesson progress, outcomes checklist, glossary, bookmarks, personal notes, AI help, and related prerequisites. It must be collapsible and must not squeeze the reading column.
+- Bottom or persistent lesson navigation: Previous, Mark section complete, Next. Disable or change state appropriately at course boundaries.
+
+Reading behavior:
+- Use clear heading hierarchy and consistent vertical spacing.
+- Code blocks must have syntax highlighting, line numbers where useful, copy button, run button when safe and relevant, and visible expected output.
+- Long lessons need a table of contents with active-section tracking.
+- Save reading position, completed sections, bookmarks, and notes automatically with clear save status.
+- Show estimated reading/practice time without pretending it is exact.
+- Support adjustable font size, comfortable line height, text selection, keyboard navigation, and reduced motion.
+- Images and diagrams need captions and alternative text.
+- Tables must remain readable and support horizontal scrolling when necessary.
+- Avoid placing too many cards, badges, or side panels inside the reading flow.
+- Do not mark a lesson complete just because the user scrolled to the bottom. Use explicit completion criteria.
+
+Responsive behavior:
+- At narrower widths, collapse the left course navigation into a drawer and move the right panel into tabs or a collapsible contextual drawer.
+- Preserve the reading column as the priority.
+- At the minimum supported window size, controls must remain reachable; no clipped buttons, overlapping panels, or inaccessible dialogs.
+
+## B11. DETAILED UI/UX AND INTERACTION SPECIFICATION FOR ALL SCREENS
+
+The existing screen descriptions define the high-level information architecture. Before implementing each screen, create a screen-specific UI specification and wireframe that states:
+- Layout regions and their order.
+- Widget hierarchy and alignment.
+- Width/height behavior, minimum sizes, margins, padding, and spacing.
+- Button labels, icons, sizes, placement, and exact actions.
+- Navigation destinations and back behavior.
+- Default, hover, pressed, focused, selected, disabled, loading, success, warning, and error states where relevant.
+- Empty, first-use, offline, slow-network, and failure states.
+- Confirmation requirements for destructive actions.
+- Keyboard shortcuts and focus order.
+- Accessibility names, tooltips, contrast, and keyboard operation.
+- Loading strategy and expected UI response during long-running tasks.
+- Validation rules and inline error placement.
+- Acceptance tests for the screen and its critical interactions.
+
+Do not guess layouts independently on every screen. Use a consistent design system and reusable components. Define design tokens for colors, typography, spacing, radius, borders, elevation, focus rings, icon sizes, and control heights. Use a consistent icon family; do not mix emoji with professional navigation icons.
+
+Every interactive control must perform a real action. No decorative/inert buttons. Do not use placeholder dialogs for core features. Use clear labels, sensible defaults, undo where practical, and confirmation before deleting profiles, notes, projects, or backups. For actions that can take time, show progress and allow cancellation when safe.
+
+For every screen, create at least:
+- Default state.
+- Empty state.
+- Loading state if data is loaded asynchronously.
+- Error state.
+- Success/confirmation state where an action changes data.
+- Narrow-window behavior.
+
+Test UI at 1024×650, 1366×768, and 1440×900, plus a resizable intermediate size. Do not use absolute positioning for primary layouts. Check keyboard-only navigation and scaling at 100%, 125%, and 150% where supported.
+
+## B12. SPECIFIC SCREEN INTERACTION DETAILS
+
+Dashboard:
+- “Continue Learning” must open the exact next recommended lesson and explain why it was selected.
+- Daily goal and streak must derive from real study records, with transparent definitions.
+- Empty-state guidance for a new learner must lead to onboarding/diagnostic/first lesson.
+
+Learning Path and Course Catalog:
+- Filters, sorting, search, locked prerequisites, and progress states must work.
+- Every course card opens a detail page; no dead-end cards.
+- Explain why a course is locked and how to unlock it.
+
+Course Detail:
+- Show objectives, prerequisites, modules, lesson count, realistic time estimate, progress, and start/continue action.
+- Module and lesson expansion state should be preserved.
+
+Lesson Reader:
+- Previous/Next navigation must respect course order and prerequisite rules.
+- Mark section complete, bookmark, add/edit note, ask AI about selected text, and glossary lookup must work.
+- Confirm before leaving only when unsaved work genuinely exists; otherwise save automatically.
+
+Code Lab:
+- Define file tabs, explorer, editor, console, test output, and optional AI panel behavior.
+- Run/Stop/Save/Open/New/Find/Replace/Format actions must work and have shortcuts where appropriate.
+- Show interpreter path/version and execution environment status.
+- Display stdout, stderr, exit code, duration, and timeout distinctly.
+- Warn before closing unsaved files; recover autosaved work after a crash.
+
+AI Mentor:
+- Show provider/model status and clear setup guidance when no API key is configured.
+- Handle rate limits, network errors, timeouts, cancellation, and provider outages gracefully.
+- Distinguish AI suggestions from verified code execution/test results.
+- Allow copying code and messages; prevent secrets from being included in context.
+
+Exercises and Exams:
+- Preserve drafts and answers as specified; clearly distinguish Save, Run, Submit, and Finish.
+- Show progress and remaining time for timed exams.
+- Confirm final submission; prevent accidental double submission.
+- Report scoring criteria and provide a remediation plan.
+
+Project Lab:
+- Each project must have a real brief, requirements, milestones, starter resources where appropriate, test/evaluation rubric, and completion evidence.
+- Workspace paths must be isolated and recoverable.
+
+Video Library:
+- Mark links as verified only after checking. Handle unavailable or region-restricted videos with alternatives.
+- Do not claim playback progress unless actually available from integration.
+
+Notes, Glossary, Analytics, Achievements, Settings:
+- Search, filters, sorting, editing, export, and delete actions must work.
+- Analytics must explain metric definitions and date ranges.
+- Settings changes must persist and show whether restart is required.
+- Destructive actions require confirmation and backups where appropriate.
+
+## B13. ERROR HANDLING AND EDGE CASES
+
+Create a central, user-friendly error handling system. Never expose raw stack traces, API keys, file paths containing private information, or database internals in ordinary UI messages. Save diagnostic logs safely and offer a “Copy diagnostic details” action with secrets redacted.
+
+Explicitly handle:
+- Database locked, corrupt, missing, or migration failure.
+- Disk full and permission denied.
+- Missing Python interpreter or unsupported Python version.
+- Code execution timeout, excessive output, process crash, or sandbox unavailable.
+- AI provider authentication failure, quota exhaustion, rate limit, network loss, malformed response, or unsupported model.
+- Invalid/corrupt lesson content and missing assets.
+- Broken YouTube/documentation links.
+- Backup interrupted, restore conflict, and incompatible backup version.
+- User closes the application during a write, exam, or code execution.
+- Duplicate username/profile and invalid input.
+- Window resized below preferred dimensions.
+
+Every error message should explain what happened in plain Uzbek, what the user can do next, whether their data is safe, and whether retrying is appropriate. Log technical detail separately. Never silently discard user work.
+
+## B14. PERFORMANCE, RELIABILITY AND DATA PROTECTION
+
+- Keep UI responsive; long operations run outside the UI thread.
+- Show cancellable progress for lengthy imports, backups, content validation, AI calls, and packaging tasks.
+- Use pagination/lazy loading for large course catalogs, histories, and logs.
+- Avoid loading every lesson, image, and chart on startup.
+- Cache only data that can be safely regenerated and invalidate it correctly.
+- Use database transactions and migrations; test interrupted writes and recovery.
+- Back up before destructive migrations or major content upgrades.
+- Do not lose learner progress when lessons are revised, reordered, or renamed.
+- Keep profile data isolated at service/repository level, not merely by hiding UI elements.
+- Make offline behavior explicit: core downloaded lessons and local practice should remain available; AI and external video links may require internet.
+
+## B15. ACCESSIBILITY AND LANGUAGE QUALITY
+
+- All controls must have accessible names and keyboard focus indicators.
+- Do not communicate status by color alone; pair color with text/icon/shape.
+- Maintain readable contrast and scalable typography.
+- Support keyboard navigation and logical tab order.
+- Respect reduced-motion preferences.
+- Use correct Uzbek Latin orthography consistently, including apostrophe characters and punctuation; avoid mixed spelling variants in the same interface.
+- Keep translation keys centralized. No hardcoded UI strings.
+- Ensure English mode translates all UI controls and messages, while lesson content availability is clearly labeled by language.
+- If a lesson is not yet translated, do not silently display the wrong language; show a clear language availability notice and an explicit fallback option.
+
+## B16. REQUIRED CONTENT AND PRODUCT DELIVERABLES
+
+In addition to the original deliverables, create and maintain:
+- docs/EDUCATIONAL_METHODOLOGY.md — teaching principles, lesson template, mastery model, and adaptive learning rules.
+- docs/CURRICULUM_MAP.md — complete course/module/lesson dependency map.
+- docs/LESSON_CONTENT_STANDARD.md — required structure and quality checklist for lessons.
+- docs/UI_UX_SPECIFICATION.md — design system, screen layouts, interaction states, and responsive rules.
+- docs/ACCESSIBILITY.md — keyboard, contrast, scaling, and accessibility checks.
+- docs/CONTENT_QA.md — editorial, technical, link, and code-example validation workflow.
+- docs/ERROR_HANDLING.md — error categories, user messages, recovery, and logging rules.
+- A content manifest that lists every course, module, lesson, exercise, quiz, project, language, status, and version.
+- Automated validators for content completeness, IDs, prerequisites, code examples, expected outputs, and broken local assets.
+
+Do not claim that the full curriculum is complete until the actual lesson files, exercises, quizzes, and assessments exist and pass validation. A course title or lesson outline is not educational content.
+
+## B17. IMPLEMENTATION ORDER FOR THIS ADDENDUM
+
+Implement iteratively without attempting to author thousands of lessons in one unreviewed batch:
+1. Finalize and document the design system and screen wireframes.
+2. Implement a functional UI shell and reusable interaction components.
+3. Finalize the curriculum map and prerequisite graph.
+4. Build the lesson content schema, renderer, and content validator.
+5. Author and review the complete beginner foundation course first, including every lesson and its practice materials.
+6. Test that course with actual learner flows and refine the lesson reader.
+7. Continue course by course, validating each before moving on.
+8. Map the 90-day route to real lesson and assessment IDs.
+9. Add adaptive learning, spaced repetition, and mastery evidence.
+10. Complete the remaining screens, edge cases, security tests, and release verification.
+
+After each milestone, report the number of real courses, modules, lessons, examples, exercises, quizzes, projects, and verified references completed. Separate “planned”, “drafted”, “reviewed”, “tested”, and “published” counts. Never inflate completion percentages with empty placeholders.
+
+## B18. FINAL ACCEPTANCE CHECKLIST — EDUCATION QUALITY
+
+The educational product is not complete until:
+[ ] A complete beginner can start without prior programming knowledge.
+[ ] The first lessons explain computer/programming basics and development setup clearly.
+[ ] Every published lesson follows the standard template where applicable.
+[ ] Every new concept has accurate explanation and tested examples.
+[ ] Examples progress from simple to realistic and explain their output.
+[ ] Difficult concepts are split into digestible lessons.
+[ ] Exercises cover recognition, guided practice, independent coding, and application.
+[ ] Feedback explains mistakes and gives progressive hints.
+[ ] Quizzes test more than memorization.
+[ ] Mastery requires evidence of practical competence.
+[ ] Prerequisites and lesson dependencies are valid.
+[ ] The 90-day plan points to real content and fits the learner's time budget.
+[ ] Review projects and checkpoint exams are implemented and meaningful.
+[ ] Lesson reading progress, notes, bookmarks, and completed sections persist.
+[ ] Uzbek explanations are clear, consistent, and technically accurate.
+[ ] English terminology is introduced and explained, not used as a barrier.
+[ ] AI tutor uses actual learner context and does not invent completed work.
+[ ] Content is tested, versioned, and reviewed before being called verified.
+[ ] No lesson is considered complete merely because it was opened or scrolled.
+[ ] Every screen's controls work and all major UI states are tested.
+[ ] Empty, loading, error, offline, and recovery states are handled.
+[ ] User progress survives content updates and application upgrades.
+
+FINAL INSTRUCTION: Educational depth, technical correctness, usable interaction design, and learner progress are core product requirements—not optional polish. If time or context is limited, deliver a smaller fully implemented and high-quality slice, clearly report what remains, and continue in later phases. Never replace real teaching content with shallow summaries or placeholder lesson cards.
